@@ -1,20 +1,45 @@
 <div style=" width: 90%;" class="container p-3">
-    <form>
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
         <div class="mb-3">
-            <label for="username" class="form-label">Nome de Usuário: </label>
-            <input type="text" class="form-control" id="username">
+            <label for="nome" class="form-label">Nome de Usuário: </label>
+            <input type="text" class="form-control" id="nome" formControlName="nome" required>
+            @if (campoInvalido('nome')) {
+                <div class="text-danger">
+                    O campo do nome deve estar preenchido
+                </div>
+            }
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email">
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+            @if (campoInvalido('email')) {
+                <div class="text-danger">
+                    O campo do email deve estar preenchido
+                </div>
+            }
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Senha: </label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" formControlName="password" required>
+            @if (campoInvalido('password')) {
+                <div class="text-danger">
+                    O campo da senha deve estar preenchido
+                </div>
+            }
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Confirme a Senha: </label>
-            <input type="password" class="form-control" id="password">
+            <label for="confirmPassword" class="form-label">Confirme a Senha: </label>
+            <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" required>
+            @if (registerForm.errors?.["passwordMismatch"] && registerForm.get('confirmPassword')?.touched) {
+                <div class="text-danger">
+                    As senhas devem ser iguais
+                </div>
+            }
+            @if (campoInvalido("confirmPassword")) {
+                <div class="text-danger">
+                    O campo de confirmação de senha deve estar preenchido
+                </div>
+            }
         </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-outline-light">Confirmar</button>

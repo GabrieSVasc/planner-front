@@ -1,20 +1,30 @@
 <div style=" width: 90%;" class="container p-3">
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
         <div class="mb-3">
-            <label for="username" class="form-label">Nome de Usuário: </label>
-            <input type="text" class="form-control" id="username">
+            <label for="nome" class="form-label">Nome de Usuário: </label>
+            <input type="text" class="form-control" id="nome" formControlName="nome" required>
+            @if (campoInvalido('nome')) {
+                <div class="text-danger">
+                    O campo do nome deve estar preenchido
+                </div>
+            }
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Senha: </label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" formControlName="password" required>
+            @if (campoInvalido('password')) {
+                <div class="text-danger">
+                    O campo da senha deve estar preenchido
+                </div>
+            }
         </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-outline-light">Login</button>
         </div>
     </form>
     <br>
-    <div class="d-flex justify-content-between">
-        <a href="#">Esqueci minha senha</a>
-        <a routerLink="/cadastro">Registrar-se</a>
+    <div class="text-center">
+    <a>Ainda não possui uma conta? </a>
+    <a href="/cadastro">Registrar-se</a>
     </div>
 </div>

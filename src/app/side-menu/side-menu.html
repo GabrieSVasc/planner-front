@@ -39,11 +39,17 @@
                 <img src="/images/Relatórios.png" width="18">
                 Relatórios
             </button>
-
-            <button class="btn btn-outline-light mt-auto">
-                Sair
-            </button>
-
+            <div class="mt-auto d-grid gap-2">
+                <button class="btn btn-outline-light justify-content-start align-items-center d-flex">
+                    <div
+                        class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold p-2"
+                        style="width:40px; height:40px;">{{inicial}}</div>
+                        <div class="p-2">{{nome}}</div>
+                </button>
+                <button class="btn btn-outline-light " (click)="click()">
+                    Sair
+                </button>
+            </div>
         </div>
     </div>
 </div>
