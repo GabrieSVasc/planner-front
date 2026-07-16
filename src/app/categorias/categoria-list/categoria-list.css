@@ -1,0 +1,59 @@
+h1{
+    margin-bottom:20px;
+}
+
+.lista-categorias{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+}
+
+.info{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.cor{
+
+    width:20px;
+
+    height:20px;
+
+    border-radius:50%;
+
+}
+
+.acoes{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.btn-nova{
+
+    margin-bottom:20px;
+
+}
