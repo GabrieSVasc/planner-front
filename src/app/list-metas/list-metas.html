@@ -1,0 +1,66 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+    <div class="row flex-grow-1">
+        <div class="col-2 bg-dark">
+            <app-side-menu></app-side-menu>
+        </div>
+        <div style="background-color: #0e141b;" class="col-10 d-flex flex-column p-3">
+            <h1 class="text-white text-center">Metas</h1>
+            <div class="row flex-grow-1">
+                <div class="col-9 p-3">
+                    <div class="container bg-dark d-flex flex-column h-100 rounded border p-3">
+                        <table class="table table-dark table-striped-columns">
+                            <tr>
+                                <th scope="col">Status</th>
+                                <th scope="col">Descrição da Meta</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Deletar</th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td class="col-9 fs-4">Meta 1</td>
+                                    <td class="col-1"><img src="/images/Editar.png" width="30" height="30"></td>
+                                    <td class="col-1"><img src="/images/Deletar.png" width="30" height="30"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-3 d-flex flex-column h-100">
+                    <button class="btn btn-outline-light w-100" style="height: 60px;">Nova Meta</button>
+                    <br>
+                    <div class="container text-center text-white bg-dark border rounded" style="height: 42%;">
+                        <div class="container">
+                            <h4>Lembretes</h4>
+                            <table class="table table-striped-columns">
+                                <thead>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Atividade</th>
+                                </thead>
+                                <tbody>
+                                    <td>16/07</td>
+                                    <td>15:00</td>
+                                    <td>Nome lembrete</td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="container text-center text-white bg-dark border rounded mt-auto" style="height: 42%;">
+                        <h4>Categorias</h4>
+                        <table class="table">
+                            <thead>
+                                <th scope="col">Cor</th>
+                                <th scope="col">Nome</th>
+                            </thead>
+                            <tbody>
+                                <td>COR</td>
+                                <td>Categoria</td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
