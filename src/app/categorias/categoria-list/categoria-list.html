@@ -1,36 +1,38 @@
 <h1>Categorias</h1>
 
 <button class="btn-nova" (click)="novaCategoria()">
-  + Nova Categoria
+    + Nova Categoria
 </button>
 
 <div class="lista-categorias">
 
-  <div class="card" *ngFor="let categoria of categorias">
+    <div class="card" *ngFor="let categoria of categorias">
 
-    <div class="info">
+        <div class="info">
 
-      <div
-        class="cor"
-        [style.background]="categoria.cor">
-      </div>
+            <div
+                class="cor"
+                [style.background-color]="categoria.cor">
+            </div>
 
-      <span>{{ categoria.nome }}</span>
+            <span class="categoria-nome">
+                {{ categoria.nome }}
+            </span>
+
+        </div>
+
+        <div class="acoes">
+
+            <button (click)="editarCategoria(categoria.id)">
+                Editar
+            </button>
+
+            <button (click)="excluirCategoria(categoria.id)">
+                Excluir
+            </button>
+
+        </div>
 
     </div>
-
-    <div class="acoes">
-
-      <button (click)="editarCategoria(categoria.id)">
-        Editar
-      </button>
-
-      <button (click)="excluirCategoria(categoria.id)">
-        Excluir
-      </button>
-
-    </div>
-
-  </div>
 
 </div>

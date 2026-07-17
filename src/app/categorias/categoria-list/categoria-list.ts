@@ -6,10 +6,12 @@ import { CategoriaService } from '../../services/categoria.service';
 
 import { Router } from '@angular/router';
 
+import { SideMenu } from '../../side-menu/side-menu';
+
 @Component({
   selector: 'app-categoria-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SideMenu],
   templateUrl: './categoria-list.html',
   styleUrl: './categoria-list.css',
 })
@@ -37,7 +39,8 @@ excluirCategoria(id: number) {
   const confirmar = confirm('Deseja realmente excluir esta categoria?');
 
   if (confirmar) {
-    this.categorias = this.categorias.filter(c => c.id !== id);
+    this.categoriaService.deleteCategoria(id);
+    this.categorias = this.categoriaService.getCategorias();
   }
 
 }

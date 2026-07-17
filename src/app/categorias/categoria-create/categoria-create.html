@@ -1,1 +1,36 @@
-<p>categoria-create funciona!</p>
+<h1>Nova Categoria</h1>
+
+<div class="form-container">
+
+  <div class="campo">
+    <label for="nome">Nome da Categoria</label>
+
+    <input
+      id="nome"
+      type="text"
+      [(ngModel)]="categoria.nome"
+      placeholder="Digite o nome da categoria">
+  </div>
+
+  <div class="campo">
+    <label for="cor">Cor</label>
+
+    <input
+      id="cor"
+      type="color"
+      [(ngModel)]="categoria.cor">
+  </div>
+
+  <div class="botoes">
+
+    <button (click)="salvarCategoria()">
+      Salvar
+    </button>
+
+    <button (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </div>
+
+</div>
