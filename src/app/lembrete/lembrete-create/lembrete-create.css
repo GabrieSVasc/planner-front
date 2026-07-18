@@ -1,0 +1,124 @@
+body{
+    margin:0;
+}
+
+:host{
+
+    display:block;
+
+    min-height:100vh;
+
+    background:#111722;
+
+    color:white;
+
+    padding:40px;
+
+}
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+.form-container{
+
+    width:450px;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+.campo{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+label{
+
+    font-size:18px;
+
+}
+
+input[type="text"],
+input[type="date"]{
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+}
+
+.tipo-container{
+
+    display:flex;
+
+    gap:30px;
+
+}
+
+.radio-option{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.botoes{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+}
+
+.btn-salvar{
+
+    background:#2E7D32;
+
+    color:white;
+
+}
+
+.btn-salvar:hover{
+
+    background:#388E3C;
+
+}
+
+.btn-cancelar{
+
+    background:#666;
+
+    color:white;
+
+}
+
+.btn-cancelar:hover{
+
+    background:#555;
+
+}
