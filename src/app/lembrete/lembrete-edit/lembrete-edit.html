@@ -1,0 +1,72 @@
+<h1>Editar Lembrete</h1>
+
+<div class="form-container">
+
+    <div class="campo">
+
+        <label>Descrição</label>
+
+        <input
+            type="text"
+            [(ngModel)]="lembrete.descricao"
+            placeholder="Digite a descrição do lembrete">
+
+    </div>
+
+    <div class="campo">
+
+        <label>Tipo</label>
+
+        <div class="tipo-container">
+
+            <label class="radio-option">
+
+                <input
+                    type="radio"
+                    name="tipo"
+                    [value]="false"
+                    [(ngModel)]="lembrete.recorrente">
+
+                Único
+
+            </label>
+
+            <label class="radio-option">
+
+                <input
+                    type="radio"
+                    name="tipo"
+                    [value]="true"
+                    [(ngModel)]="lembrete.recorrente">
+
+                Recorrente
+
+            </label>
+
+        </div>
+
+    </div>
+
+    <div class="campo">
+
+        <label>Data Fim</label>
+
+        <input
+            type="date"
+            [(ngModel)]="lembrete.data">
+
+    </div>
+
+    <div class="botoes">
+
+        <button class="btn-salvar" (click)="salvarLembrete()">
+            Salvar
+        </button>
+
+        <button class="btn-cancelar" (click)="cancelar()">
+            Cancelar
+        </button>
+
+    </div>
+
+</div>
