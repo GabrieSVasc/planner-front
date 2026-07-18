@@ -1,0 +1,225 @@
+<h1>Resumo do Dia</h1>
+
+<div class="cabecalho">
+
+    <button
+        class="btn-dia"
+        (click)="diaAnterior()">
+        &lt;
+    </button>
+
+    <div class="data">
+
+        <h2>{{ dataFormatada }}</h2>
+
+        <h3>{{ nomeDia }}</h3>
+
+    </div>
+
+    <button
+        class="btn-dia"
+        (click)="proximoDia()">
+        &gt;
+    </button>
+
+</div>
+
+<div class="conteudo">
+
+    <section class="painel-principal">
+
+        <div class="lista-container">
+
+            <div class="lista">
+
+                <h2>Tarefas</h2>
+
+                <div
+                    class="item"
+                    *ngFor="let tarefa of tarefasHoje">
+
+                    <span>
+
+                        {{ tarefa.concluida ? '✅' : '⬜' }}
+
+                    </span>
+
+                    <span
+                        [style.color]="tarefa.cor"
+                        [style.text-decoration]="tarefa.concluida ? 'line-through' : 'none'">
+
+                        {{ tarefa.titulo }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="lista">
+
+                <h2>Metas</h2>
+
+                <div
+                    class="item"
+                    *ngFor="let meta of metasHoje">
+
+                    <span [style.color]="meta.cor">
+
+                        {{ meta.titulo }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="lembretes">
+
+            <h3>Próximos lembretes</h3>
+
+            <div
+                class="card-lembrete"
+                *ngFor="let lembrete of lembretesHoje">
+
+                <div class="data-lembrete">
+
+                    {{ lembrete.data }}
+
+                </div>
+
+                <div class="info-lembrete">
+
+                    <strong>{{ lembrete.titulo }}</strong>
+
+                    <span>
+
+                        {{ lembrete.recorrente ? 'Recorrente' : 'Único' }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <aside class="painel-lateral">
+
+        <div class="produtividade">
+
+            <h2>{{ produtividade }}% de produtividade</h2>
+
+            <div class="barra">
+
+                <div
+                    class="barra-preenchida"
+                    [style.width.%]="produtividade">
+
+                </div>
+
+            </div>
+
+            <p>
+
+                De {{ tarefasHoje.length }} tarefas marcadas,
+                {{ tarefasConcluidas }}
+                foi{{ tarefasConcluidas === 1 ? '' : 'ram' }}
+                concluída{{ tarefasConcluidas === 1 ? '' : 's' }}.
+
+            </p>
+
+        </div>
+
+        <button
+            class="btn-nova"
+            (click)="novaTarefa()">
+
+            Nova tarefa
+
+        </button>
+
+        <div class="calendario">
+
+            <h3>Calendário</h3>
+
+            <div class="mes">
+
+                {{ mesAno }}
+
+            </div>
+
+            <div class="dias-semana">
+
+                <span>S</span>
+                <span>T</span>
+                <span>Q</span>
+                <span>Q</span>
+                <span>S</span>
+                <span>S</span>
+                <span>D</span>
+
+            </div>
+
+            <div class="dias">
+
+                <span
+                    *ngFor ="let dia of calendario"
+
+                    [class.vazio]="dia === null"
+                    
+                    [class.hoje] ="dia === diaAtual"
+
+                    (click)="selecionarDia(dia)">
+                    
+                    {{ dia ?? '' }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="categorias">
+
+            <h3>Categorias</h3>
+
+            <div class="categoria-item">
+
+                <div class="cor vermelho"></div>
+
+                Faculdade
+
+            </div>
+
+            <div class="categoria-item">
+
+                <div class="cor amarelo"></div>
+
+                Compras
+
+            </div>
+
+                <div class="categoria-item">
+
+                    <div class="cor verde"></div>
+
+                    Saúde
+
+                </div>
+
+        </div>
+
+        <div class="categorias">
+
+            Categorias
+
+        </div>
+
+    </aside>
+
+</div>

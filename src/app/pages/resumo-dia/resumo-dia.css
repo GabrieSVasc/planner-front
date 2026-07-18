@@ -1,0 +1,481 @@
+:host{
+
+    display:block;
+
+    min-height:100vh;
+
+    background:#111722;
+
+    color:white;
+
+    padding:35px;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+
+h1{
+
+    text-align:center;
+
+    font-size:52px;
+
+    margin-bottom:25px;
+
+}
+
+.cabecalho{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.btn-dia{
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#232C3A;
+
+    color:white;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.btn-dia:hover{
+
+    background:#334155;
+
+}
+
+.data{
+
+    text-align:center;
+
+}
+
+.data h2{
+
+    margin:0;
+
+    font-size:42px;
+
+}
+
+.data h3{
+
+    margin-top:8px;
+
+    color:#C8CDD6;
+
+    text-transform:capitalize;
+
+}
+
+.conteudo{
+
+    display:grid;
+
+    grid-template-columns:3fr 1fr;
+
+    gap:25px;
+
+}
+
+.lista-container{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+
+}
+
+.lista{
+
+    background:#1C2533;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.lista h2{
+
+    margin:0;
+
+    padding:15px;
+
+    text-align:center;
+
+    background:#273244;
+
+    border-bottom:1px solid #3B4658;
+
+}
+
+.item{
+
+    padding:18px;
+
+    border-bottom:1px solid #2E394B;
+
+    text-align:center;
+
+    font-size:20px;
+
+    transition:.2s;
+
+}
+
+.item:hover{
+
+    background:#263140;
+
+}
+
+.item:last-child{
+
+    border-bottom:none;
+
+}
+
+.lembretes{
+
+    margin-top:20px;
+
+    background:#1C2533;
+
+    border-radius:12px;
+
+    padding:20px;
+
+}
+
+.lembretes h3{
+
+    margin-top:0;
+
+}
+
+.card-lembrete{
+
+    display:flex;
+
+    align-items:center;
+
+    margin-top:15px;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    background:#273244;
+
+    transition:.2s;
+
+    cursor:pointer;
+
+}
+
+.card-lembrete:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.data-lembrete{
+
+    width:80px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#374457;
+
+    font-weight:bold;
+
+}
+
+.info-lembrete{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    padding:15px;
+
+    gap:5px;
+
+}
+
+.painel-lateral{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.produtividade{
+
+    background:#1C2533;
+
+    border-radius:12px;
+
+    padding:20px;
+
+}
+
+.produtividade h2{
+
+    margin-top:0;
+
+}
+
+.btn-nova{
+
+    background:#43A047;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:16px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.btn-nova:hover{
+
+    transform:translateY(-2px);
+
+    background:#4CAF50;
+
+}
+
+.calendario,
+
+.categorias{
+
+    background:#1C2533;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    min-height:180px;
+
+}
+
+.barra{
+
+    width:100%;
+
+    height:14px;
+
+    background:#313D4E;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin:15px 0;
+
+}
+
+.barra-preenchida{
+
+    height:100%;
+
+    background:#4CAF50;
+
+    transition:.4s;
+
+}
+
+.calendario h3,
+.categorias h3{
+
+    margin-top:0;
+
+    margin-bottom:15px;
+
+}
+
+.mes{
+
+    text-align:center;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+}
+
+.dias-semana,
+.dias{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:6px;
+
+    text-align:center;
+
+}
+
+.dias-semana{
+
+    margin-bottom:10px;
+
+    color:#AEB6C2;
+
+    font-size:14px;
+
+}
+
+.dias span{
+
+    padding:6px;
+
+    border-radius:6px;
+
+}
+
+.hoje{
+
+    background:#43A047;
+
+    font-weight:bold;
+
+}
+
+.categoria-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin:15px 0;
+
+}
+
+.cor{
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+}
+
+.vermelho{
+
+    background:#D96C75;
+
+}
+
+.amarelo{
+
+    background:#E3A33A;
+
+}
+
+.verde{
+
+    background:#4CAF50;
+
+}
+
+.dias{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:6px;
+
+}
+
+.dias span{
+
+    height:34px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:8px;
+
+    transition:.2s;
+
+}
+
+.dias span:not(.vazio){
+
+    cursor:pointer;
+
+}
+
+.dias span:not(.vazio):hover{
+
+    background:#2F3B4C;
+
+}
+
+.vazio{
+
+    visibility:hidden;
+
+}
+
+.hoje{
+
+    background:#43A047;
+
+    font-weight:bold;
+
+}

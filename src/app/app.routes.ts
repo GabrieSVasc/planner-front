@@ -8,6 +8,7 @@ import { CategoriaEdit } from './categorias/categoria-edit/categoria-edit';
 import { LembreteList } from './lembrete/lembrete-list/lembrete-list';
 import { LembreteCreate } from './lembrete/lembrete-create/lembrete-create';
 import { LembreteEdit } from './lembrete/lembrete-edit/lembrete-edit';
+import { ResumoDia } from './pages/resumo-dia/resumo-dia';
 
 export const routes: Routes = [
   {
@@ -41,5 +42,10 @@ export const routes: Routes = [
   {
     path: 'lembretes/editar/:id',
     component: LembreteEdit
+  },
+
+  {
+    path: 'resumo-dia',
+    component: ResumoDia
   },
 ];
