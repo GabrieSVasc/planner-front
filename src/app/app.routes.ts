@@ -9,6 +9,7 @@ import { LembreteList } from './lembrete/lembrete-list/lembrete-list';
 import { LembreteCreate } from './lembrete/lembrete-create/lembrete-create';
 import { LembreteEdit } from './lembrete/lembrete-edit/lembrete-edit';
 import { ResumoDia } from './pages/resumo-dia/resumo-dia';
+import { ResumoSemana } from './pages/resumo-semana/resumo-semana';
 
 export const routes: Routes = [
   {
@@ -47,5 +48,10 @@ export const routes: Routes = [
   {
     path: 'resumo-dia',
     component: ResumoDia
+  },
+
+  {
+  path: 'resumo-semana',
+  component: ResumoSemana
   },
 ];
