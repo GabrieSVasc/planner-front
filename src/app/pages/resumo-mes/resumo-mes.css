@@ -1,0 +1,477 @@
+:host {
+
+    display: block;
+
+    min-height: 100vh;
+
+    background: #111722;
+
+    color: white;
+
+    padding: 25px;
+
+}
+
+h1 {
+
+    text-align: center;
+
+    font-size: 48px;
+
+    margin-bottom: 15px;
+
+    font-family: Georgia, serif;
+
+    font-weight: 400;
+
+}
+
+.cabecalho {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+.data {
+
+    flex: 1;
+
+    text-align: center;
+
+}
+
+.data h2 {
+
+    font-size: 38px;
+
+    font-family: Georgia, serif;
+
+    font-weight: 400;
+
+    margin: 0;
+
+}
+
+.btn-mes {
+
+    width: 55px;
+
+    height: 55px;
+
+    font-size: 26px;
+
+    background: #1A1F28;
+
+    color: white;
+
+    border: 1px solid #777;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.btn-mes:hover {
+
+    background: #2B3444;
+
+}
+
+.conteudo {
+
+    display: grid;
+
+    grid-template-columns: 4fr 1fr;
+
+    gap: 20px;
+
+}
+
+.painel-principal {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.calendario-mensal {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    border: 1px solid #777;
+
+}
+
+.cabecalho-dia {
+
+    text-align: center;
+
+    padding: 8px;
+
+    border: 1px solid #777;
+
+    font-size: 17px;
+
+    font-family: Georgia, serif;
+
+    background: #1A1F28;
+
+}
+
+.dia {
+
+    min-height: 80px;
+
+    height: 80px;
+
+    border: 1px solid #777;
+
+    padding: 6px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.dia:hover {
+
+    background: #1A1F28;
+
+}
+
+.dia-selecionado {
+
+    background: #1E2B3C;
+
+    border: 2px solid #4F46E5;
+
+}
+
+.numero {
+
+    font-size: 16px;
+
+    font-family: Georgia, serif;
+
+}
+
+.eventos {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    overflow: hidden;
+
+}
+
+.evento {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+.cor-evento {
+
+    width: 8px;
+
+    height: 8px;
+
+    min-width: 8px;
+
+    border-radius: 2px;
+
+}
+
+.mais-eventos {
+
+    font-size: 11px;
+
+    color: #AAA;
+
+    margin-top: 2px;
+
+}
+
+.compromissos {
+
+    margin-top: 15px;
+
+    border: 1px solid #777;
+
+    border-radius: 8px;
+
+    padding: 15px;
+
+}
+
+.compromissos h3 {
+
+    margin-top: 0;
+
+    margin-bottom: 12px;
+
+}
+
+.lista-compromissos {
+
+    display: flex;
+
+    gap: 12px;
+
+}
+
+.card-compromisso {
+
+    flex: 1;
+
+    border: 1px solid #777;
+
+    border-radius: 6px;
+
+    padding: 10px;
+
+    background: #1A1F28;
+
+}
+
+.card-compromisso h4 {
+
+    margin: 0 0 6px;
+
+    font-size: 16px;
+
+}
+
+.card-compromisso p {
+
+    margin: 0;
+
+    font-size: 14px;
+
+}
+
+.card-compromisso small {
+
+    color: #AAA;
+
+}
+
+.painel-lateral {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+}
+
+.btn-nova {
+
+    height: 48px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    background: #43A047;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.btn-nova:hover {
+
+    background: #4CAF50;
+
+}
+
+.calendario {
+
+    border: 1px solid #777;
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+}
+
+.calendario h3 {
+
+    margin-top: 0;
+
+}
+
+.mes {
+
+    text-align: center;
+
+    margin: 12px 0;
+
+}
+
+.dias-semana {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    text-align: center;
+
+    margin-bottom: 8px;
+
+    color: #CCC;
+
+}
+
+.dias {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    gap: 4px;
+
+}
+
+.dias span {
+
+    text-align: center;
+
+    padding: 6px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.dias span:hover {
+
+    background: #2B3444;
+
+}
+
+.hoje {
+
+    background: #4F46E5;
+
+}
+
+.vazio {
+
+    visibility: hidden;
+
+}
+
+.categorias {
+
+    border: 1px solid #777;
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+}
+
+.categorias h3 {
+
+    margin-top: 0;
+
+}
+
+.categoria-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 10px 0;
+
+}
+
+.cor {
+
+    width: 14px;
+
+    height: 14px;
+
+    border-radius: 50%;
+
+}
+
+.vermelho {
+
+    background: #D96C75;
+
+}
+
+.amarelo {
+
+    background: #E3A33A;
+
+}
+
+.verde {
+
+    background: #66BB6A;
+
+}
+
+.sem-compromissos {
+
+    padding: 15px;
+
+    color: #AAA;
+
+    text-align: center;
+
+    border: 1px dashed #777;
+
+    border-radius: 6px;
+
+}
