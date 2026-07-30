@@ -33,6 +33,9 @@ export class LoginPage {
     }
     const nome = this.loginForm.value.nome!;
     const password = this.loginForm.value.password!;
-    this.userService.login(nome, password);
+    const logado = this.userService.login(nome, password);
+    if(logado){
+      this.router.navigate(["/resumo-dia"]);
+    }
   }
 }

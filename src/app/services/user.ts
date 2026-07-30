@@ -6,55 +6,30 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UserService {
-  private apiURL = "http://localhost:8000/api";
-  constructor(private http: HttpClient) { }
-
-  async register(user: User): Promise<User|null>{
-    try{
-      const response = await fetch(this.apiURL+"/registrar", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(user)
-      })
-      return await response.json();
-    }catch(error){
-      console.error("Erro ao cadastrar o usuário: ", error);
-      return null;
-    }
+   private users: User[] = [
+      {
+        id: 1,
+        nome: 'User',
+        email: 'User@gmail.com',
+        password: 'abc123'
+      },
+      {
+        id: 2,
+        nome: 'User123',
+        email: 'User123@gmail.com',
+        password: 'abc12345'
+      }
+    ];
+  register(user: User){
+    user.id = this.users.length+1;
+    this.users.push(user);
   }
 
-  async login(nome: String, password: string): Promise<boolean>{
-    try{
-      const response = await fetch(this.apiURL+"/login", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({nome, password}),
-      });
-      if(!response.ok){
-        throw new Error('Login falhou');
-      }
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
-      return true;
-    }catch(error){
-      console.error("Erro ao fazer login: ", error);
-      return false;
-    }
+  login(nome: String, password: string): User|undefined{
+    const logado = this.users.find(user => user.nome==nome && user.password==password);
+    return logado;
   }
 
-  async logout(){
-    try{
-      const response = await fetch(this.apiURL+"/logout", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json',
-                  "Authorization": `Bearer ${localStorage.getItem('token')}`},
-      });
-      if(!response.ok){
-        throw new Error("Logout falhou");
-      }
-      localStorage.removeItem('token');
-    }catch(error){
-      console.error("Erro ao fazer logout: ", error);
-    }
+  logout(){
   }
 }

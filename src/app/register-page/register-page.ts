@@ -44,6 +44,7 @@ export class RegisterPage {
       password: this.registerForm.value.password!
     }
     this.userService.register(user);
+    this.router.navigate(["/"]);
   }
 }
 
