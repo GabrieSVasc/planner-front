@@ -16,18 +16,20 @@
                                 <th scope="col">Deletar</th>
                             </tr>
                             <tbody>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td class="col-9 fs-4">Meta 1</td>
-                                    <td class="col-1"><img src="/images/Editar.png" width="30" height="30"></td>
-                                    <td class="col-1"><img src="/images/Deletar.png" width="30" height="30"></td>
-                                </tr>
+                                @for (meta of metas; track meta.id) {
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td class="col-9 fs-4">{{meta.descricao}}</td>
+                                        <td class="col-1"><img src="/images/Editar.png" (click)="editMeta(meta.id)" width="30" height="30"></td>
+                                        <td class="col-1"><img src="/images/Deletar.png" (click)="removeMeta(meta.id)" width="30" height="30"></td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="col-3 d-flex flex-column h-100">
-                    <button class="btn btn-outline-light w-100" style="height: 60px;">Nova Meta</button>
+                    <button class="btn btn-outline-light w-100" style="height: 60px;" (click)="to('criar')" >Nova Meta</button>
                     <br>
                     <div class="container text-center text-white bg-dark border rounded" style="height: 42%;">
                         <div class="container">
