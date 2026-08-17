@@ -1,0 +1,301 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-3 col-xl-2 px-0">
+            <app-side-menu (sair)="sair()"></app-side-menu>
+        </div>
+
+        <div class="col-12 col-lg-9 col-xl-10 bg-light min-vh-100">
+            <div class="container py-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1 class="mb-1">Tarefas</h1>
+                        <p class="text-secondary mb-0">Organize, acompanhe e atualize suas tarefas.</p>
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="abrirModalCriacao()">Nova tarefa</button>
+                </div>
+
+                @if (erroPagina()) {
+                    <div class="alert alert-danger">{{ erroPagina() }}</div>
+                }
+
+                @if (sucessoPagina()) {
+                    <div class="alert alert-success">{{ sucessoPagina() }}</div>
+                }
+
+                <div class="filters-panel mb-3">
+                    <div class="filter-selects">
+                        <div class="filter-group">
+                            <label class="filter-label" for="status-filter">Status</label>
+                            <div class="select-shell">
+                                <select
+                                    id="status-filter"
+                                    class="form-select filter-select"
+                                    [value]="filtroAtivo()"
+                                    (change)="selecionarFiltro($any($event.target).value)"
+                                >
+                                    @for (filtro of filtroOptions; track filtro) {
+                                        <option [value]="filtro">{{ rotuloFiltro(filtro) }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label" for="priority-filter">Prioridade</label>
+                            <div class="select-shell">
+                                <select
+                                    id="priority-filter"
+                                    class="form-select filter-select"
+                                    [value]="filtroPrioridadeAtivo()"
+                                    (change)="selecionarFiltroPrioridade($any($event.target).value)"
+                                >
+                                    @for (prioridade of filtroPrioridadeOptions; track prioridade) {
+                                        <option [value]="prioridade">{{ rotuloFiltroPrioridade(prioridade) }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label" for="shift-filter">Turno</label>
+                            <div class="select-shell">
+                                <select
+                                    id="shift-filter"
+                                    class="form-select filter-select"
+                                    [value]="filtroTurnoAtivo()"
+                                    (change)="selecionarFiltroTurno($any($event.target).value)"
+                                >
+                                    @for (turno of filtroTurnoOptions; track turno) {
+                                        <option [value]="turno">{{ rotuloFiltroTurno(turno) }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-secondary filter-reset" (click)="limparFiltros()">
+                        Limpar filtros
+                    </button>
+                </div>
+
+                @if (carregando()) {
+                    <div class="alert alert-secondary">Carregando tarefas...</div>
+                } @else if (!tarefas().length) {
+                    <div class="alert alert-light border">Nenhuma tarefa encontrada.</div>
+                } @else {
+                    <div class="row g-3">
+                        @for (tarefa of tarefas(); track tarefa.id) {
+                            <div class="col-12">
+                                <div class="card shadow-sm task-card" [class.is-complete]="tarefa.status === 'CUMPRIDA'">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start gap-3 flex-column flex-md-row">
+                                            <div class="d-flex align-items-start gap-3 flex-grow-1">
+                                                <button
+                                                    type="button"
+                                                    class="todo-toggle"
+                                                    [class.is-done]="tarefa.status === 'CUMPRIDA'"
+                                                    (click)="concluirTarefa(tarefa)"
+                                                    [attr.aria-label]="tarefa.status === 'CUMPRIDA' ? 'Marcar como pendente' : 'Marcar como concluida'"
+                                                >
+                                                    <svg viewBox="0 0 16 16" class="todo-toggle-icon" aria-hidden="true">
+                                                        <path d="M6.5 11.2 3.3 8l1.1-1.1 2.1 2.1 5.1-5.1L12.7 5z" />
+                                                    </svg>
+                                                </button>
+
+                                                <div class="task-main">
+                                                    <div class="d-flex gap-2 flex-wrap mb-2">
+                                                        <span class="badge task-badge task-badge-status">{{ rotuloStatus(tarefa.status) }}</span>
+                                                        <span class="badge task-badge task-badge-neutral">{{ rotuloPrioridade(tarefa.prioridade) }}</span>
+                                                        <span class="badge task-badge task-badge-neutral">{{ rotuloTurno(tarefa.turno) }}</span>
+                                                    </div>
+                                                    <h3 class="h5 mb-1" [class.task-done]="tarefa.status === 'CUMPRIDA'">{{ tarefa.descricao }}</h3>
+                                                    <p class="mb-2 text-secondary">
+                                                        {{ tarefa.data }} | {{ tarefa.hora_inicio.slice(0, 5) }} - {{ tarefa.hora_fim.slice(0, 5) }}
+                                                    </p>
+                                                    <p class="mb-3 text-secondary">
+                                                        Categoria:
+                                                        {{ tarefa.categoria?.nome || tarefa.categoria_id || 'Nao definida' }}
+                                                    </p>
+
+                                                    <div class="status-switch">
+                                                        <button
+                                                            type="button"
+                                                            class="status-pill"
+                                                            [class.is-active]="tarefa.status === 'NAO_CUMPRIDA'"
+                                                            (click)="atualizarStatusTarefa(tarefa, 'NAO_CUMPRIDA')"
+                                                        >
+                                                            Pendente
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            class="status-pill"
+                                                            [class.is-active]="tarefa.status === 'PARCIAL'"
+                                                            (click)="atualizarStatusTarefa(tarefa, 'PARCIAL')"
+                                                        >
+                                                            Em andamento
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            class="status-pill"
+                                                            [class.is-active]="tarefa.status === 'CUMPRIDA'"
+                                                            (click)="atualizarStatusTarefa(tarefa, 'CUMPRIDA')"
+                                                        >
+                                                            Concluida
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-column flex-sm-row gap-2 task-actions">
+                                                <button type="button" class="icon-action icon-edit" (click)="editarTarefa(tarefa)" aria-label="Editar tarefa" title="Editar tarefa">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75zM20.7 7.04a1 1 0 0 0 0-1.41L18.37 3.3a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"/>
+                                                    </svg>
+                                                </button>
+                                                <button type="button" class="icon-action icon-delete" (click)="excluirTarefa(tarefa.id)" aria-label="Excluir tarefa" title="Excluir tarefa">
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                        <path d="M9 3h6l1 2h4v2H4V5h4zm1 6h2v8h-2zm4 0h2v8h-2zM7 9h2v8H7zm1 11a2 2 0 0 1-2-2V8h12v10a2 2 0 0 1-2 2z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (modalAberto()) {
+    <div class="task-modal-backdrop" (click)="fecharModal()">
+        <div class="task-modal" (click)="$event.stopPropagation()">
+            <div class="task-modal-header">
+                <div>
+                    <h2 class="h3 mb-0">{{ tarefaForm.value.id ? 'Editar tarefa' : 'Criar tarefa' }}</h2>
+                </div>
+                <button type="button" class="btn-close" aria-label="Fechar" (click)="fecharModal()"></button>
+            </div>
+
+            <div class="task-modal-body">
+                @if (erroModal()) {
+                    <div class="alert alert-danger mb-4">{{ erroModal() }}</div>
+                }
+
+                @if (sucessoModal()) {
+                    <div class="alert alert-success mb-4">{{ sucessoModal() }}</div>
+                }
+
+                <form class="task-form" [formGroup]="tarefaForm" (ngSubmit)="salvarTarefa()">
+                    <section class="task-form-section">
+                        <div class="mb-3">
+                            <label class="form-label" for="descricao">Descricao</label>
+                            <textarea
+                                id="descricao"
+                                rows="4"
+                                class="form-control task-input"
+                                [class.is-invalid]="campoInvalido('descricao')"
+                                formControlName="descricao"
+                                placeholder="Ex.: Finalizar planejamento da semana"
+                            ></textarea>
+                            @if (mensagemErroCampo('descricao')) {
+                                <div class="field-error">{{ mensagemErroCampo('descricao') }}</div>
+                            }
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="prioridade">Prioridade</label>
+                                <select id="prioridade" class="form-select task-input" formControlName="prioridade">
+                                    @for (prioridade of prioridadeOptions; track prioridade) {
+                                        <option [value]="prioridade">{{ rotuloPrioridade(prioridade) }}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="turno">Turno</label>
+                                <select id="turno" class="form-select task-input" formControlName="turno">
+                                    @for (turno of turnoOptions; track turno) {
+                                        <option [value]="turno">{{ rotuloTurno(turno) }}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="categoria_id">Categoria</label>
+                                <select id="categoria_id" class="form-select task-input" formControlName="categoria_id">
+                                    <option [ngValue]="null">Sem categoria</option>
+                                    @for (categoria of categoriasDisponiveis(); track categoria.id) {
+                                        <option [ngValue]="categoria.id">{{ categoria.nome }}</option>
+                                    }
+                                </select>
+                                @if (categoriasDisponiveis().length) {
+                                    <p class="category-helper mt-2 mb-0">{{ descricaoCategoriaSelecionada() }}</p>
+                                } @else {
+                                    <p class="category-helper mt-2 mb-0">Nenhuma categoria disponivel no momento.</p>
+                                }
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="task-form-section">
+                        <div class="section-heading">
+                            <h3 class="h6 mb-0">Agendamento</h3>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label" for="data">Data</label>
+                                <input
+                                    id="data"
+                                    type="date"
+                                    class="form-control task-input"
+                                    [class.is-invalid]="campoInvalido('data')"
+                                    formControlName="data"
+                                >
+                                @if (mensagemErroCampo('data')) {
+                                    <div class="field-error">{{ mensagemErroCampo('data') }}</div>
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label" for="hora_inicio">Hora inicio</label>
+                                <input
+                                    id="hora_inicio"
+                                    type="time"
+                                    class="form-control task-input"
+                                    [class.is-invalid]="campoInvalido('hora_inicio')"
+                                    formControlName="hora_inicio"
+                                >
+                                @if (mensagemErroCampo('hora_inicio')) {
+                                    <div class="field-error">{{ mensagemErroCampo('hora_inicio') }}</div>
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label" for="hora_fim">Hora fim</label>
+                                <input
+                                    id="hora_fim"
+                                    type="time"
+                                    class="form-control task-input"
+                                    [class.is-invalid]="campoInvalido('hora_fim')"
+                                    formControlName="hora_fim"
+                                >
+                                @if (mensagemErroCampo('hora_fim')) {
+                                    <div class="field-error">{{ mensagemErroCampo('hora_fim') }}</div>
+                                }
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="task-modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" (click)="fecharModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary px-4" [disabled]="salvando()">
+                            {{ salvando() ? 'Salvando...' : 'Salvar tarefa' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
