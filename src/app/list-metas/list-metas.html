@@ -18,8 +18,20 @@
                             <tbody>
                                 @for (meta of metas; track meta.id) {
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td class="col-9 fs-4">{{meta.descricao}}</td>
+                                        <th scope="row">
+                                            <div class="dropdown">
+                                                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    {{meta.status}}
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item">Em andamento</a></li>
+                                                    <li><a class="dropdown-item">Cumprida</a></li>
+                                                    <li><a class="dropdown-item">Parcial</a></li>
+                                                    <li><a class="dropdown-item">Não Cumprida</a></li>
+                                                </ul>
+                                            </div>
+                                        </th>
+                                        <td class="col-8 fs-4">{{meta.descricao}}</td>
                                         <td class="col-1"><img src="/images/Editar.png" (click)="editMeta(meta.id)" width="30" height="30"></td>
                                         <td class="col-1"><img src="/images/Deletar.png" (click)="removeMeta(meta.id)" width="30" height="30"></td>
                                     </tr>

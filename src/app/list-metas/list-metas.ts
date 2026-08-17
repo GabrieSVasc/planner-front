@@ -3,10 +3,11 @@ import { SideMenu } from "../side-menu/side-menu";
 import { Meta } from '../meta';
 import { MetaService } from '../meta-service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-list-metas',
-  imports: [SideMenu],
+  imports: [SideMenu, FormsModule],
   templateUrl: './list-metas.html',
   styleUrl: './list-metas.css',
 })

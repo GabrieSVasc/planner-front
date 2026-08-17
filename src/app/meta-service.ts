@@ -10,7 +10,7 @@ export class MetaService {
     {
       id: 1,
       descricao: 'Meta 1',
-      status: 'Em_ANDAMENTO',
+      status: 'EM_ANDAMENTO',
       periodo: 'MENSAL',
       inicio: new Date("2026-08-01"),
       fim: new Date("2026-08-31")
@@ -18,7 +18,7 @@ export class MetaService {
     {
       id: 2,
       descricao: 'Meta 2',
-      status: 'Em_ANDAMENTO',
+      status: 'EM_ANDAMENTO',
       periodo: 'SEMANAL',
       inicio: new Date("2026-07-26"),
       fim: new Date("2026-08-01")
@@ -26,7 +26,7 @@ export class MetaService {
     {
       id: 3,
       descricao: 'Meta 3',
-      status: 'Em_ANDAMENTO',
+      status: 'EM_ANDAMENTO',
       periodo: 'MENSAL',
       inicio: new Date("2026-08-01"),
       fim: new Date("2026-08-31")
