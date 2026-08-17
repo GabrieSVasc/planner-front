@@ -1,0 +1,145 @@
+<h1>Calendário Semanal</h1>
+
+<div class="cabecalho">
+
+    <button
+        class="btn-dia"
+        (click)="semanaAnterior()">
+        &lt;
+    </button>
+
+    <div class="data">
+
+        <h2>{{ semana }}</h2>
+
+    </div>
+
+    <button
+        class="btn-dia"
+        (click)="proximaSemana()">
+        &gt;
+    </button>
+
+</div>
+
+<div class="conteudo">
+
+    <section class="painel-principal">
+
+        <div class="calendario-semana">
+
+            <div
+                class="dia-coluna"
+                *ngFor="let dia of dias"
+
+                [class.dia-atual]="
+                    dia.data.getDate() === dataAtual.getDate()
+                    &&
+                    dia.data.getMonth() === dataAtual.getMonth()
+                ">
+
+                <div class="titulo-dia">
+
+                    {{ dia.letra }}
+
+                </div>
+
+                <div
+                    class="tarefa"
+                    *ngFor="let tarefa of dia.tarefas"
+                    [style.color]="tarefa.cor">
+
+                    {{ tarefa.titulo }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <aside class="painel-lateral">
+
+        <button
+            class="btn-nova"
+            (click)="novaTarefa()">
+
+            Nova tarefa
+
+        </button>
+
+        <div class="calendario">
+
+            <h3>Calendário</h3>
+
+            <div class="mes">
+
+                {{ mesAno }}
+
+            </div>
+
+            <div class="dias-semana">
+
+                <span>S</span>
+                <span>T</span>
+                <span>Q</span>
+                <span>Q</span>
+                <span>S</span>
+                <span>S</span>
+                <span>D</span>
+
+            </div>
+
+            <div class="dias">
+
+                <span
+                    *ngFor="let dia of calendario"
+
+                    [class.vazio]="dia === null"
+
+                    [class.hoje]="dia === diaAtual"
+
+                    (click)="selecionarDia(dia)">
+
+                    {{ dia ?? '' }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="categorias">
+
+            <h3>Categorias</h3>
+
+            <div class="categoria-item">
+
+                <div class="cor vermelho"></div>
+
+                Faculdade
+
+            </div>
+
+            <div class="categoria-item">
+
+                <div class="cor amarelo"></div>
+
+                Compras
+
+            </div>
+
+            <div class="categoria-item">
+
+                <div class="cor verde"></div>
+
+                Saúde
+
+            </div>
+
+        </div>
+
+    </aside>
+
+</div>
