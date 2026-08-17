@@ -1,41 +1,45 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../services/user';
-import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
 export class LoginPage {
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ){}
+  private readonly authService = inject(AuthService);
+  private readonly formBuilder = inject(FormBuilder);
 
-  loginForm = new FormGroup({
-    nome: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+  readonly loginForm = this.formBuilder.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
-  campoInvalido(campo: string){
-    const controle = this.loginForm.get(campo);
-    return controle?.invalid && controle?.touched;
-  }
+  isSubmitting = false;
+  errorMessage = '';
 
-  submit(){
-    if(this.loginForm.invalid){
+  onSubmit(): void {
+    if (this.loginForm.invalid || this.isSubmitting) {
+      this.loginForm.markAllAsTouched();
       return;
     }
-    const nome = this.loginForm.value.nome!;
-    const password = this.loginForm.value.password!;
-    const logado = this.userService.login(nome, password);
-    if(logado){
-      this.router.navigate(["/resumo-dia"]);
-    }
+
+    this.errorMessage = '';
+    this.isSubmitting = true;
+
+    this.authService.login(this.loginForm.getRawValue()).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+      },
+      error: (error) => {
+        this.errorMessage = error.error?.message ?? 'Nao foi possivel fazer login.';
+        this.isSubmitting = false;
+      },
+    });
   }
 }

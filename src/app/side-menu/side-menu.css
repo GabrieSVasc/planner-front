@@ -1,0 +1,95 @@
+.side-menu {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 1rem;
+  background: #111827;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.5rem 0.35rem 1rem;
+}
+
+.brand-kicker {
+  margin: 0 0 0.2rem;
+  color: #f9fafb;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+}
+
+.brand-title {
+  margin: 0;
+  color: #f9fafb;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 0;
+  border-radius: 0.95rem;
+  background: transparent;
+  color: #dbe4ee;
+  text-decoration: none;
+  text-align: left;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.menu-item.is-active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.menu-item.is-muted {
+  opacity: 0.58;
+  cursor: default;
+}
+
+.menu-item.is-muted:hover {
+  background: transparent;
+  color: #dbe4ee;
+  transform: none;
+}
+
+.logout-button {
+  margin-top: auto;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: #f9fafb;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+img {
+  flex: 0 0 auto;
+}

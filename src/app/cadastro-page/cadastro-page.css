@@ -1,0 +1,48 @@
+.brand-title {
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1;
+}
+
+.cadastro-card {
+  width: min(100%, 32rem);
+  background-color: #161c24;
+  border: 1px solid #fff;
+}
+
+.cadastro-card-body {
+  width: 100%;
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: #8ecae6;
+  box-shadow: 0 0 0 0.2rem rgba(142, 202, 230, 0.2);
+}
+
+.field-error {
+  margin-top: 0.35rem;
+  color: #ffb703;
+  font-size: 0.875rem;
+}
+
+a {
+  color: #9fdcff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #d6f0ff;
+}
+
+@media (max-width: 991.98px) {
+  .cadastro-card {
+    width: 100%;
+  }
+}
