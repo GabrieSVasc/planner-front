@@ -1,0 +1,38 @@
+<h1>Lembretes</h1>
+
+<button class="btn-nova" (click)="novoLembrete()">
+    + Novo Lembrete
+</button>
+
+<div class="lista-lembretes">
+
+    <div class="card" *ngFor="let lembrete of lembretes">
+
+        <div class="info">
+
+            <span class="lembrete-nome">
+                {{ lembrete.descricao }}
+            </span>
+
+            <span class="lembrete-info">
+                📅 {{ lembrete.data | date: 'dd/MM/yyyy'}} •
+                {{ lembrete.recorrente ? '🔁 Recorrente' : '📌 Único' }}
+            </span>
+
+        </div>
+
+        <div class="acoes">
+
+            <button (click)="editarLembrete(lembrete.id)">
+                Editar
+            </button>
+
+            <button (click)="excluirLembrete(lembrete.id)">
+                Excluir
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
