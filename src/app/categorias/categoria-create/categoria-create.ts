@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Categoria } from '../../models/categoria';
-import { CategoriaService } from '../../services/categoria.service';
+import { CategoriaService, NovaCategoria } from '../../services/categoria.service';
 
 @Component({
   selector: 'app-categoria-create',
@@ -13,8 +13,7 @@ import { CategoriaService } from '../../services/categoria.service';
 })
 export class CategoriaCreate {
 
-  categoria: Categoria = {
-    id: 0,
+  categoria: NovaCategoria = {
     nome: '',
     cor: '#000000'
   };
@@ -24,16 +23,13 @@ export class CategoriaCreate {
     private router: Router
   ) {}
 
-  salvarCategoria() {
-
-    const novaCategoria: Categoria = {
-      ...this.categoria,
-      id: Date.now()
-    };
-
-    this.categoriaService.addCategoria(novaCategoria);
-
-    this.router.navigate(['/categorias']);
+  async salvarCategoria() {
+    const response = await this.categoriaService.addCategoria(this.categoria);
+    if(response){
+      this.router.navigate(['/categorias']);
+    }else{
+      alert("Erro ao criar uma nova categoria");
+    }
   }
 
   cancelar() {

@@ -1,38 +1,45 @@
-<h1>Categorias</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-3 col-xl-2 px-0"> <app-side-menu></app-side-menu></div>
+        <div class="col-10 d-flex flex-column p-3" style="background-color: #111722;">
+            <h1>Categorias</h1>
 
-<button class="btn-nova" (click)="novaCategoria()">
-    + Nova Categoria
-</button>
+            <button class="btn-nova" (click)="novaCategoria()">
+                + Nova Categoria
+            </button>
 
-<div class="lista-categorias">
+            <div class="lista-categorias">
 
-    <div class="card" *ngFor="let categoria of categorias">
+                <div class="card" *ngFor="let categoria of categorias">
 
-        <div class="info">
+                    <div class="info">
 
-            <div
-                class="cor"
-                [style.background-color]="categoria.cor">
+                        <div
+                            class="cor"
+                            [style.background-color]="categoria.cor">
+                        </div>
+
+                        <span class="categoria-nome">
+                            {{ categoria.nome }}
+                        </span>
+
+                    </div>
+
+                    <div class="acoes">
+
+                        <button (click)="editarCategoria(categoria.id)">
+                            Editar
+                        </button>
+
+                        <button (click)="excluirCategoria(categoria.id)">
+                            Excluir
+                        </button>
+
+                    </div>
+
+                </div>
+
             </div>
-
-            <span class="categoria-nome">
-                {{ categoria.nome }}
-            </span>
-
         </div>
-
-        <div class="acoes">
-
-            <button (click)="editarCategoria(categoria.id)">
-                Editar
-            </button>
-
-            <button (click)="excluirCategoria(categoria.id)">
-                Excluir
-            </button>
-
-        </div>
-
     </div>
-
 </div>
