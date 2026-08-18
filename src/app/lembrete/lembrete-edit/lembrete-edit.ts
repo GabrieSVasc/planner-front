@@ -33,9 +33,9 @@ export class LembreteEdit {
 
     const lembreteEncontrado = this.lembreteService.getLembreteById(id);
 
-    if (lembreteEncontrado) {
-      this.lembrete = { ...lembreteEncontrado };
-    }
+//    if (lembreteEncontrado) {
+  //    this.lembrete = { ...lembreteEncontrado };
+    //}
 
   }
 

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { SideMenu } from '../../side-menu/side-menu';
 import { Lembrete } from '../../models/lembrete';
 import { LembreteService } from '../../services/lembrete.service';
 
 @Component({
   selector: 'app-lembrete-create',
-  imports: [FormsModule],
+  imports: [FormsModule, SideMenu],
   templateUrl: './lembrete-create.html',
   styleUrl: './lembrete-create.css',
 })

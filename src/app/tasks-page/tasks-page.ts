@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
-
 import { AuthService } from '../core/auth.service';
 import { TarefaService } from '../core/tarefa.service';
 import { Categoria, Tarefa, TarefaPayload, TarefaPrioridade, TarefaStatus, TarefaTurno } from '../core/tarefa.model';

@@ -3,10 +3,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Lembrete } from '../../models/lembrete';
 import { LembreteService } from '../../services/lembrete.service';
+import { SideMenu } from '../../side-menu/side-menu';
 
 @Component({
   selector: 'app-lembrete-list',
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, SideMenu],
   templateUrl: './lembrete-list.html',
   styleUrl: './lembrete-list.css',
 })
@@ -18,7 +19,7 @@ export class LembreteList {
     private lembreteService: LembreteService,
     private router: Router
   ) {
-    this.lembretes = this.lembreteService.getLembretes();
+    //this.lembretes = this.lembreteService.getLembretes();
   }
 
   novoLembrete() {
@@ -35,7 +36,7 @@ export class LembreteList {
 
     if (confirmar) {
       this.lembreteService.deleteLembrete(id);
-      this.lembretes = this.lembreteService.getLembretes();
+      //this.lembretes = this.lembreteService.getLembretes();
     }
 
   }
