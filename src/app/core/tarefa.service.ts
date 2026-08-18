@@ -27,4 +27,17 @@ export class TarefaService {
   excluir(id: number) {
     return this.http.delete<{ message: string }>(`${API_BASE_URL}/tarefas/${id}`);
   }
+  async listarPorData(data: Date): Promise<Tarefa[]>{
+    const response = await fetch(`${API_BASE_URL}/tarefas/data/${data.toISOString().slice(0, 10)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem('planner_token')
+      }
+    });
+    if(!response.ok){
+      throw new Error("Erro ao buscar tarefas na data: "+data.toString());
+    }
+    return await response.json();
+  }
 }
