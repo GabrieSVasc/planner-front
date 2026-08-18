@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SideMenu } from "../side-menu/side-menu";
-import { Meta } from '../meta';
-import { MetaService } from '../meta-service';
+import { SideMenu } from "../../side-menu/side-menu";
+import { Meta } from '../../models/meta';
+import { MetaService } from '../../services/meta.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-list-metas',
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
 export class ListMetas implements OnInit {
   constructor(
     private metaService: MetaService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ){}
   metas: Meta[] = [];
 
@@ -22,19 +24,28 @@ export class ListMetas implements OnInit {
     this.renovarLista();
   }
   
-  renovarLista(){
-    this.metas = this.metaService.getMetas();
+
+  async renovarLista() {
+    this.metas = await this.metaService.getMetas();
+    this.cdr.detectChanges();
   }
+
   editMeta(id?: number){
     this.router.navigate(['/metas/editar/'+id]);
   }
 
-  removeMeta(id?: number){
+  removeMeta(id: number){
     this.metaService.removeMeta(id);
     this.renovarLista();
   }
 
   to(rota: string){
     this.router.navigate(['/metas/'+rota]);
+  }
+  concluida(meta: Meta){
+    if(meta.status=="CUMPRIDA"){
+      return true;
+    }
+    return false;
   }
 }

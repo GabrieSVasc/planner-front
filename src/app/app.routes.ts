@@ -14,6 +14,7 @@ import { LembreteEdit } from './lembrete/lembrete-edit/lembrete-edit';
 import { ResumoDia } from './pages/resumo-dia/resumo-dia';
 import { ResumoSemana } from './pages/resumo-semana/resumo-semana';
 import { ResumoMes } from './pages/resumo-mes/resumo-mes';
+import { EditMeta } from './meta/edit-meta/edit-meta';
 
 export const routes: Routes = [
   {
@@ -91,6 +92,6 @@ export const routes: Routes = [
   },
   {
       path: 'metas/editar/:id',
-      component: FormMeta
+      component: EditMeta
   }
 ];

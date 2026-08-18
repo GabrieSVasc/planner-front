@@ -1,11 +1,17 @@
+import { Categoria } from "./categoria";
+
 export interface Meta {
   id: number;
 
   descricao: string;
 
-  categoria: string;
+  categoria: Categoria;
 
-  periodo: 'Semanal' | 'Mensal' | 'Anual';
+  periodo: 'SEMANAL' | 'MENSAL' | 'ANUAL';
 
-  status: 'Com sucesso' | 'Parcialmente atingida' | 'Sem sucesso';
+  status: 'EM_ANDAMENTO' | 'CUMPRIDA' | 'PARCIAL' | 'NAO_CUMPRIDA';
+
+  data_inicio: string;
+  
+  data_fim: string;
 }

@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-3 col-xl-2 px-0">
+            <app-side-menu></app-side-menu>
+        </div>
+        <div style="background-color: #0e141b; color: white;" class="col-10 d-flex flex-column p-3">
+            <h1 class="text-white text-center">Criar meta</h1>
+            <div class="form-container">
+                <div class="campo">
+                    <label>Descrição</label>
+                    <input type="text" [(ngModel)]="meta.descricao">
+                </div>
+                <div class="campo">
+                    <label>Período</label>
+                    <div class="tipo-container">
+                        <label class="radio-option">
+                            <input type="radio" name="tipo" value="SEMANAL" [(ngModel)]="meta.periodo">
+                            Semanal
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="tipo" value="MENSAL" [(ngModel)]="meta.periodo">
+                            Mensal
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="tipo" value="ANUAL" [(ngModel)]="meta.periodo">
+                            Anual
+                        </label>
+                    </div>
+                    <div class="campo">
+                        <label>Data Inicio</label>
+                        <input type="date" [(ngModel)]="meta.data_inicio">
+                    </div>
+                    <div class="campo">
+                        <label>Categoria</label>
+                        <select [(ngModel)]="meta.categoria_id" name="categoria">
+                            @for (categoria of categorias; track $index) {
+                                <option value="{{categoria.id}}">{{categoria.nome}}</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="botoes">
+                        <button class="btn-salvar" (click)="salvar()">Salvar</button>
+                        <button class="btn-cancelar" (click)="to('/metas')">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

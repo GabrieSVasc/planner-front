@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-3 col-xl-2 px-0">
+            <app-side-menu></app-side-menu>
+        </div>
+        <div style="background-color: #0e141b; color: white;" class="col-10 d-flex flex-column p-3">
+            <h1>Metas</h1>
+            <button class="btn-nova" (click)="to('criar')">+ Nova Meta</button>
+            <div class="listar">
+                @for (meta of metas; track $index) {
+                    <div class="card">
+                        <div class="info">
+                            <span class="nome" [style.color]="meta.categoria.cor" [style.text-decoration]="concluida(meta) ? 'line-through' : 'none'">{{meta.descricao}}</span>
+                            <span class="meta-info" [style.text-decoration]="concluida(meta) ? 'line-through' : 'none'">
+                                📅 {{ meta.data_inicio}} •
+                                {{meta.periodo}}
+                            </span>
+                        </div>
+                        <div class="acoes">
+                            <button (click)="editMeta(meta.id)">Editar</button>
+                            <button (click)="removeMeta(meta.id)">Excluir</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
