@@ -1,0 +1,28 @@
+<div style=" width: 90%;" class="container p-3">
+    <div style=" width: 90%;" class="container p-3">
+        @if (errorMessage) {
+            <div class="alert alert-danger py-2" role="alert">
+                {{ errorMessage }}
+            </div>
+        }
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email: </label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha: </label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-outline-light" [disabled]="isSubmitting">
+                {{ isSubmitting ? 'Entrando...' : 'Login' }}
+            </button>
+        </div>
+    </form>
+    <br>
+    <div class="d-flex justify-content-between">
+        <a href="#">Esqueci minha senha</a>
+        <a routerLink="/cadastro">Registrar-se</a>
+    </div>
+</div>

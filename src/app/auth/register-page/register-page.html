@@ -1,0 +1,41 @@
+<div style=" width: 90%;" class="container p-3">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome de Usuário: </label>
+            <input type="text" class="form-control" id="nome" formControlName="nome" required>
+            @if (mensagemErroCampo('nome')) {
+                <div class="field-error">{{ mensagemErroCampo('nome') }}</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+            @if (mensagemErroCampo('email')) {
+                <div class="field-error">{{ mensagemErroCampo('email') }}</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha: </label>
+            <input type="password" class="form-control" id="password" formControlName="password" required>
+            @if (mensagemErroCampo('password')) {
+                <div class="field-error">{{ mensagemErroCampo('password') }}</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="password_confirmation" class="form-label">Confirme a Senha: </label>
+            <input type="password" class="form-control" id="password_confirmation" formControlName="password_confirmation" required>
+            @if (mensagemErroCampo('password_confirmation')) {
+                <div class="field-error">{{ mensagemErroCampo('password_confirmation') }}</div>
+            }
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-outline-light" [disabled]="isSubmitting">
+                {{ isSubmitting ? 'Criando conta...' : 'Criar conta' }}
+            </button>
+        </div>
+    </form>
+    <div class="d-flex justify-content-end mt-4">
+        <a routerLink="/">Voltar para login</a>
+    </div>
+    <br>
+</div>

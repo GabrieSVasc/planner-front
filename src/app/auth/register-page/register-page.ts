@@ -2,21 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-
-import { AuthService } from '../core/auth.service';
-
+import { AuthService } from '../../core/auth.service';
 @Component({
   selector: 'app-cadastro-page',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './cadastro-page.html',
-  styleUrl: './cadastro-page.css',
+  templateUrl: './register-page.html',
+  styleUrl: './register-page.css',
 })
-export class CadastroPage {
+export class RegisterPage {
   private readonly authService = inject(AuthService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
 
-  readonly cadastroForm = this.formBuilder.nonNullable.group({
+  readonly registerForm = this.formBuilder.nonNullable.group({
     nome: ['', [Validators.required, Validators.maxLength(255)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4)]],
@@ -28,12 +26,12 @@ export class CadastroPage {
   successMessage = '';
 
   onSubmit(): void {
-    if (this.cadastroForm.invalid || this.isSubmitting) {
-      this.cadastroForm.markAllAsTouched();
+    if (this.registerForm.invalid || this.isSubmitting) {
+      this.registerForm.markAllAsTouched();
       return;
     }
 
-    if (this.cadastroForm.controls.password.value !== this.cadastroForm.controls.password_confirmation.value) {
+    if (this.registerForm.controls.password.value !== this.registerForm.controls.password_confirmation.value) {
       this.errorMessage = 'A confirmacao de senha precisa ser igual a senha.';
       return;
     }
@@ -42,7 +40,7 @@ export class CadastroPage {
     this.successMessage = '';
     this.isSubmitting = true;
 
-    this.authService.registrar(this.cadastroForm.getRawValue()).subscribe({
+    this.authService.registrar(this.registerForm.getRawValue()).subscribe({
       next: (response) => {
         this.successMessage = response.message;
         this.isSubmitting = false;
@@ -58,7 +56,7 @@ export class CadastroPage {
   }
 
   mensagemErroCampo(campo: 'nome' | 'email' | 'password' | 'password_confirmation'): string {
-    const control = this.cadastroForm.controls[campo];
+    const control = this.registerForm.controls[campo];
 
     if (!control.touched && !control.dirty) {
       return '';
@@ -91,9 +89,9 @@ export class CadastroPage {
 
     if (
       campo === 'password_confirmation' &&
-      this.cadastroForm.controls.password.value &&
+      this.registerForm.controls.password.value &&
       control.value &&
-      this.cadastroForm.controls.password.value !== control.value
+      this.registerForm.controls.password.value !== control.value
     ) {
       return 'A confirmacao precisa ser igual a senha.';
     }

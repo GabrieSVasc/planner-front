@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
-
 import { API_BASE_URL } from './api.config';
-import { LoginPayload, LoginResponse, RegisterPayload, RegisterResponse } from './auth.model';
+import { LoginPayload, LoginResponse, RegisterResponse, RegisterPayload } from './auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
