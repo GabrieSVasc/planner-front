@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { SideMenu } from "../../side-menu/side-menu";
 
 @Component({
   selector: 'app-resumo-mes',
-  imports: [CommonModule],
+  imports: [CommonModule, SideMenu],
   templateUrl: './resumo-mes.html',
   styleUrl: './resumo-mes.css'
 })
 export class ResumoMes {
 
-  dataAtual = new Date(2026, 6, 14);
+  dataAtual = new Date();
 
   get compromissos() {
 
@@ -36,12 +37,6 @@ export class ResumoMes {
       categoria: this.nomeCategoria(evento.cor)
 
     }));
-
-  }
-
-  novaTarefa(): void {
-
-    alert('Tela de tarefas ainda não implementada.');
 
   }
 

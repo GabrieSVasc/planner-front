@@ -1,21 +1,16 @@
 import { CommonModule } from '@angular/common';
+import { SideMenu } from '../../side-menu/side-menu';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-resumo-semana',
-  imports: [CommonModule],
+  imports: [CommonModule, SideMenu],
   templateUrl: './resumo-semana.html',
   styleUrl: './resumo-semana.css'
 })
 export class ResumoSemana {
 
   dataAtual = new Date(2026, 6, 18);
-
-  novaTarefa(): void {
-
-    alert('Tela de criação de tarefas ainda não implementada.');
-
-  }
 
   semanaAnterior(): void {
 

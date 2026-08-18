@@ -1,17 +1,3 @@
-:host {
-
-    display: block;
-
-    min-height: 100vh;
-
-    background: #111722;
-
-    color: white;
-
-    padding: 25px;
-
-}
-
 h1 {
 
     text-align: center;
@@ -297,32 +283,6 @@ h1 {
     flex-direction: column;
 
     gap: 18px;
-
-}
-
-.btn-nova {
-
-    height: 48px;
-
-    border-radius: 10px;
-
-    border: none;
-
-    background: #43A047;
-
-    color: white;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    transition: .2s;
-
-}
-
-.btn-nova:hover {
-
-    background: #4CAF50;
 
 }
 

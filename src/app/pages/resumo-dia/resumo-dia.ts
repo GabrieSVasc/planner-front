@@ -1,162 +1,57 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { SideMenu } from "../../side-menu/side-menu";
+import { TarefaService } from '../../core/tarefa.service';
+import { Tarefa } from '../../core/tarefa.model';
+import { Categoria } from '../../core/tarefa.model';
+import { Meta } from '../../models/meta';
+import { Lembrete } from '../../models/lembrete';
 
 @Component({
   selector: 'app-resumo-dia',
-  imports: [CommonModule],
+  imports: [CommonModule, SideMenu],
   templateUrl: './resumo-dia.html',
   styleUrl: './resumo-dia.css',
 })
 export class ResumoDia implements OnInit {
+  constructor(
+    private tarefaService: TarefaService,
+    private cdr: ChangeDetectorRef
+  ){}
 
-  dataAtual = new Date(2026, 6, 18);
+  dataAtual = new Date();
 
-  dadosMock = {
+  diaTarefas: Tarefa[] = [];
+  diaMetas: Meta[] = [];
+  diaCategorias: Categoria[] = [];
+  diaLembretes: Lembrete[] = [];
 
-    18: {
-
-      tarefas: [
-
-        {
-          titulo: 'Estudar Angular',
-          cor: '#D96C75',
-          concluida: false
-        },
-
-        {
-          titulo: 'Comprar material',
-          cor: '#E3A33A',
-          concluida: true
-        }
-
-      ],
-
-      metas: [
-
-        {
-          titulo: 'Aprender Angular',
-          cor: '#D8D76A'
-        }
-
-      ],
-
-      lembretes: [
-
-        {
-          data: '18/07',
-          titulo: 'Reunião PLP',
-          recorrente: true
-        }
-
-      ]
-
-    },
-
-    19: {
-
-      tarefas: [
-
-        {
-          titulo: 'Academia',
-          cor: '#4CAF50',
-          concluida: true
-        },
-
-        {
-          titulo: 'Projeto Banco de Dados',
-          cor: '#42A5F5',
-          concluida: false
-        }
-
-      ],
-
-      metas: [
-
-        {
-          titulo: 'Meta da semana',
-          cor: '#FFCA28'
-        }
-
-      ],
-
-      lembretes: [
-
-        {
-          data: '19/07',
-          titulo: 'Dentista',
-          recorrente: false
-        }
-
-      ]
-
-    },
-
-    20: {
-
-      tarefas: [
-
-        {
-          titulo: 'Comprar mercado',
-          cor: '#AB47BC',
-          concluida: false
-        }
-
-      ],
-
-      metas: [
-
-        {
-          titulo: 'Economizar dinheiro',
-          cor: '#26A69A'
-        }
-
-      ],
-
-      lembretes: [
-
-        {
-          data: '20/07',
-          titulo: 'Pagar boleto',
-          recorrente: false
-        }
-
-      ]
-
-    }
-
-  };
-
-  ngOnInit(): void {}
-
-  diaAnterior(): void {
-
-    this.dataAtual.setDate(this.dataAtual.getDate() - 1);
-    this.dataAtual = new Date(this.dataAtual);
-
+  async ngOnInit(){
+    this.pegarTarefasData();
   }
 
-  proximoDia(): void {
-
-    this.dataAtual.setDate(this.dataAtual.getDate() + 1);
-    this.dataAtual = new Date(this.dataAtual);
-
+  async pegarTarefasData(){
+    this.diaTarefas = [];
+    this.diaTarefas = await this.tarefaService.listarPorData(this.dataAtual);
+    this.cdr.detectChanges();
   }
 
-  selecionarDia(dia: number | null): void {
+  async mudarDia(mudar: number){
+    this.dataAtual.setDate(this.dataAtual.getDate() +mudar);
+    this.dataAtual = new Date(this.dataAtual);
+    this.pegarTarefasData();
+    
+  }
 
-    if (dia === null) return;
+  selecionarDia(diaTarefas: number | null): void {
+
+    if (diaTarefas === null) return;
 
     this.dataAtual = new Date(
       this.dataAtual.getFullYear(),
       this.dataAtual.getMonth(),
-      dia
+      diaTarefas
     );
-
-  }
-
-  novaTarefa(): void {
-
-    alert('Tela de criação de tarefas ainda não implementada.');
 
   }
 
@@ -170,26 +65,20 @@ export class ResumoDia implements OnInit {
   }
 
   get nomeDia(): string {
-
     return this.dataAtual.toLocaleDateString('pt-BR', {
       weekday: 'long'
     });
-
   }
 
   get mesAno(): string {
-
     return this.dataAtual.toLocaleDateString('pt-BR', {
       month: 'long',
       year: 'numeric'
     });
-
   }
 
   get diaAtual(): number {
-
     return this.dataAtual.getDate();
-
   }
 
   get calendario(): (number | null)[] {
@@ -221,21 +110,15 @@ export class ResumoDia implements OnInit {
   }
 
   get tarefasHoje() {
-
-    return this.dadosMock[this.diaAtual as keyof typeof this.dadosMock]?.tarefas ?? [];
-
+    return this.diaTarefas;
   }
 
   get metasHoje() {
-
-    return this.dadosMock[this.diaAtual as keyof typeof this.dadosMock]?.metas ?? [];
-
+    return this.diaMetas;
   }
 
   get lembretesHoje() {
-
-    return this.dadosMock[this.diaAtual as keyof typeof this.dadosMock]?.lembretes ?? [];
-
+    return this.diaLembretes;
   }
 
   get produtividade(): number {
@@ -247,7 +130,7 @@ export class ResumoDia implements OnInit {
     }
 
     const concluidas = this.tarefasHoje.filter(
-      tarefa => tarefa.concluida
+      tarefa => this.concluida(tarefa)
     ).length;
 
     return Math.round((concluidas / total) * 100);
@@ -257,9 +140,20 @@ export class ResumoDia implements OnInit {
   get tarefasConcluidas(): number {
 
     return this.tarefasHoje.filter(
-      tarefa => tarefa.concluida
+      tarefa => this.concluida(tarefa)
     ).length;
 
   }
 
+  concluida(tarefa: Tarefa): boolean{
+    if(tarefa.status == "CUMPRIDA"){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  getCorCategoria(id: number){
+    return this.diaCategorias[id];
+  }
 }
