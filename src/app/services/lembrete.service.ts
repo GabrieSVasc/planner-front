@@ -82,4 +82,19 @@ export class LembreteService {
     })
     return response.ok;
   }
+
+  async listarPorData(data: Date): Promise<Lembrete[]>{
+    const response = await fetch(`${API_BASE_URL}/lembretes/data/${data.toISOString().slice(0,10)}`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem('planner_token')
+      }
+    })
+    if(!response.ok){
+      throw new Error("Erro ao buscar lembretes na data: "+data.toString());
+    }
+    const dados = await response.json();
+    return dados['data'];
+  }
 }

@@ -96,4 +96,17 @@ export class MetaService {
     })
     return response.ok;
   }
+
+  async metaByStatus(status: string): Promise<Meta[]>{
+    const response = await fetch(`${API_BASE_URL}/metas/status/${status}`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem('planner_token')
+      },
+    })
+    
+    const data = await response.json();
+    return data['data'];
+  }
 }

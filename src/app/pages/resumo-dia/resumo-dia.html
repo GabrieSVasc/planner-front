@@ -91,7 +91,7 @@
 
                             <div class="data-lembrete">
 
-                                {{ lembrete.data }}
+                                {{ lembrete.data_hora }}
 
                             </div>
 
@@ -133,7 +133,7 @@
 
                             De {{ tarefasHoje.length }} tarefas marcadas,
                             {{ tarefasConcluidas }}
-                            foi{{ tarefasConcluidas === 1 ? '' : 'ram' }}
+                            fo{{ tarefasConcluidas === 1 ? 'i' : 'ram' }}
                             concluída{{ tarefasConcluidas === 1 ? '' : 's' }}.
 
                         </p>
@@ -182,39 +182,13 @@
                     </div>
 
                     <div class="categorias">
-
                         <h3>Categorias</h3>
-
-                        <div class="categoria-item">
-
-                            <div class="cor vermelho"></div>
-
-                            Faculdade
-
-                        </div>
-
-                        <div class="categoria-item">
-
-                            <div class="cor amarelo"></div>
-
-                            Compras
-
-                        </div>
-
+                        @for (categoria of diaCategorias; track $index) {
                             <div class="categoria-item">
-
-                                <div class="cor verde"></div>
-
-                                Saúde
-
+                                <div class="cor" [style.background-color]="categoria.cor"></div>
+                                {{categoria.nome}}
                             </div>
-
-                    </div>
-
-                    <div class="categorias">
-
-                        Categorias
-
+                        }
                     </div>
 
                 </aside>

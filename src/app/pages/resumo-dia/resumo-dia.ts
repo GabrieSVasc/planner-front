@@ -3,9 +3,12 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SideMenu } from "../../side-menu/side-menu";
 import { TarefaService } from '../../services/tarefa.service';
 import { Tarefa } from '../../models/tarefa.model';
-import { Categoria } from '../../models/tarefa.model';
+import { Categoria } from '../../models/categoria';
 import { Meta } from '../../models/meta';
 import { Lembrete } from '../../models/lembrete';
+import { MetaService } from '../../services/meta.service';
+import { CategoriaService } from '../../services/categoria.service';
+import { LembreteService } from '../../services/lembrete.service';
 
 @Component({
   selector: 'app-resumo-dia',
@@ -16,7 +19,10 @@ import { Lembrete } from '../../models/lembrete';
 export class ResumoDia implements OnInit {
   constructor(
     private tarefaService: TarefaService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private metaService: MetaService,
+    private categoriaService: CategoriaService,
+    private lembreteService: LembreteService
   ){}
 
   dataAtual = new Date();
@@ -27,7 +33,14 @@ export class ResumoDia implements OnInit {
   diaLembretes: Lembrete[] = [];
 
   async ngOnInit(){
+    this.pegarMetas();
+    this.pegarCategorias();
+    this.atualizarData();
+  }
+
+  async atualizarData(){
     this.pegarTarefasData();
+    this.pegarLembretesData();
   }
 
   async pegarTarefasData(){
@@ -35,24 +48,36 @@ export class ResumoDia implements OnInit {
     this.diaTarefas = await this.tarefaService.listarPorData(this.dataAtual);
     this.cdr.detectChanges();
   }
+  async pegarLembretesData(){
+    this.diaLembretes = [];
+    this.diaLembretes = await this.lembreteService.listarPorData(this.dataAtual);
+    this.cdr.detectChanges();
+  }
+
+  async pegarMetas(){
+    this.diaMetas = await this.metaService.metaByStatus("EM_ANDAMENTO");
+    this.cdr.detectChanges();
+  }
+
+  async pegarCategorias(){
+    this.diaCategorias = await this.categoriaService.getCategorias();
+    this.cdr.detectChanges();
+  }
 
   async mudarDia(mudar: number){
     this.dataAtual.setDate(this.dataAtual.getDate() +mudar);
     this.dataAtual = new Date(this.dataAtual);
-    this.pegarTarefasData();
-    
+    this.atualizarData();
   }
 
   selecionarDia(diaTarefas: number | null): void {
-
     if (diaTarefas === null) return;
-
     this.dataAtual = new Date(
       this.dataAtual.getFullYear(),
       this.dataAtual.getMonth(),
       diaTarefas
     );
-
+    this.atualizarData()
   }
 
   get dataFormatada(): string {
