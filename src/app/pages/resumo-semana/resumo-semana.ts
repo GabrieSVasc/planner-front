@@ -45,17 +45,20 @@ export class ResumoSemana implements OnInit{
   }
 
   async atualizarSemana(){
-    this.tarefasDias = [];
     const date = this.inicioSemana(this.dataAtual);
     for(let i=0; i<7; i++){
       const dia = new Date(date);
       dia.setDate(date.getDate()+i);
-      const tarefas = await this.obterTarefasDia(dia);
       this.tarefasDias.push({
         data: dia,
         letra: this.inicialSemana[i],
-        tarefas: tarefas
-      });
+        tarefas: []
+      })
+    }
+    this.cdr.detectChanges();
+    for(let i=0; i<7; i++){
+      const tarefas = await this.obterTarefasDia(this.tarefasDias[i].data);
+      this.tarefasDias[i].tarefas = tarefas;
       this.cdr.detectChanges();
     }
   }

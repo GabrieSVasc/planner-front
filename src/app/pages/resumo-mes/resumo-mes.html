@@ -10,7 +10,7 @@
 
                 <button
                     class="btn-mes"
-                    (click)="mesAnterior()">
+                    (click)="mudarMes(-1)">
                     &lt;
                 </button>
 
@@ -22,7 +22,7 @@
 
                 <button
                     class="btn-mes"
-                    (click)="proximoMes()">
+                    (click)="mudarMes(+1)">
                     &gt;
                 </button>
 
@@ -44,13 +44,13 @@
 
                         <div
                             class="dia"
-                            *ngFor="let dia of calendarioMensal"
-                            [class.dia-selecionado]="dia.numero === diaAtual"
-                            (click)="selecionarDiaGrande(dia.numero)">
+                            *ngFor="let dia of tarefasMes"
+                            [class.dia-selecionado]="dia.dia === diaAtual"
+                            (click)="selecionarDiaGrande(dia.dia!)">
 
                             <span class="numero">
 
-                                {{ dia.numero }}
+                                {{ dia.dia }}
 
                             </span>
 
@@ -58,22 +58,22 @@
 
                                 <div
                                     class="evento"
-                                    *ngFor="let evento of dia.eventos.slice(0, 2)">
+                                    *ngFor="let evento of dia.tarefas">
 
                                     <span
                                         class="cor-evento"
-                                        [style.background]="evento.cor">
+                                        [style.background]="evento.categoria?.cor">
                                     </span>
 
-                                    {{ evento.titulo }}
+                                    {{ evento.descricao }}
 
                                 </div>
 
                                 <div
                                     class="mais-eventos"
-                                    *ngIf="dia.eventos.length > 2">
+                                    *ngIf="dia.tarefas.length > 2">
 
-                                    +{{ dia.eventos.length - 2 }}
+                                    +{{ dia.tarefas.length - 2 }}
 
                                 </div>
 
@@ -91,10 +91,10 @@
 
                             <div
                                 class="card-compromisso"
-                                *ngFor="let compromisso of compromissos">
+                                *ngFor="let compromisso of compromissos()">
 
                                 <h4>
-                                    {{ compromisso.titulo }}
+                                    {{ compromisso.descricao }}
                                 </h4>
 
                                 <p>
@@ -102,7 +102,7 @@
                                 </p>
 
                                 <small>
-                                    {{ compromisso.categoria }}
+                                    {{ compromisso.categoria?.nome }}
                                 </small>
 
                             </div>
@@ -111,7 +111,7 @@
 
                         <div
                             class="sem-compromissos"
-                            *ngIf="compromissos.length === 0">
+                            *ngIf="compromissos().length === 0">
 
                             Nenhum compromisso para este dia.
 
@@ -167,31 +167,12 @@
                     <div class="categorias">
 
                         <h3>Categorias</h3>
-
-                        <div class="categoria-item">
-
-                            <div class="cor vermelho"></div>
-
-                            Faculdade
-
-                        </div>
-
-                        <div class="categoria-item">
-
-                            <div class="cor amarelo"></div>
-
-                            Compras
-
-                        </div>
-
-                        <div class="categoria-item">
-
-                            <div class="cor verde"></div>
-
-                            Saúde
-
-                        </div>
-
+                        @for (categoria of categorias; track $index) {
+                            <div class="categoria-item" >
+                                <div class="cor" [style.background-color]="categoria.cor"></div>
+                                {{categoria.nome}}
+                            </div>
+                        }
                     </div>
 
                 </aside>
