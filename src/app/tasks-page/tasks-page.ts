@@ -4,8 +4,10 @@ import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Va
 import { finalize } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { TarefaService } from '../services/tarefa.service';
-import { Categoria, Tarefa, TarefaPayload, TarefaPrioridade, TarefaStatus, TarefaTurno } from '../models/tarefa.model';
+import { Categoria } from '../models/categoria';
+import { Tarefa, TarefaPayload, TarefaPrioridade, TarefaStatus, TarefaTurno } from '../models/tarefa.model';
 import { SideMenu } from '../side-menu/side-menu';
+import { CategoriaService } from '../services/categoria.service';
 
 type Filtro = 'TODAS' | TarefaStatus;
 type FiltroPrioridade = 'TODAS' | TarefaPrioridade;
@@ -21,6 +23,7 @@ export class TasksPage implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly tarefaService = inject(TarefaService);
+  private readonly categoriaService =inject(CategoriaService);
   private pageMessageTimer: ReturnType<typeof setTimeout> | null = null;
   private modalMessageTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -68,20 +71,15 @@ export class TasksPage implements OnInit {
       return statusOk && prioridadeOk && turnoOk;
     });
   });
-  readonly categoriasDisponiveis = computed(() => {
-    const categorias = new Map<number, Categoria>();
+  readonly categoriasDisponiveis = signal<Categoria[]>([]);
 
-    for (const tarefa of this.todasAsTarefas()) {
-      if (tarefa.categoria) {
-        categorias.set(tarefa.categoria.id, tarefa.categoria);
-      }
-    }
-
-    return Array.from(categorias.values()).sort((a, b) => a.nome.localeCompare(b.nome));
-  });
-
-  ngOnInit(): void {
+  async ngOnInit() {
     this.carregarTarefas();
+    const categorias = await this.categoriaService.getCategorias();
+    this.categoriasDisponiveis.set(
+      categorias.sort((a,b)=>a.nome.localeCompare(b.nome))
+    );
+    console.log(categorias);
   }
 
   carregarTarefas(): void {

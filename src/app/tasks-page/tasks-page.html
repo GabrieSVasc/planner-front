@@ -231,11 +231,6 @@
                                         <option [ngValue]="categoria.id">{{ categoria.nome }}</option>
                                     }
                                 </select>
-                                @if (categoriasDisponiveis().length) {
-                                    <p class="category-helper mt-2 mb-0">{{ descricaoCategoriaSelecionada() }}</p>
-                                } @else {
-                                    <p class="category-helper mt-2 mb-0">Nenhuma categoria disponivel no momento.</p>
-                                }
                             </div>
                         </div>
                     </section>
