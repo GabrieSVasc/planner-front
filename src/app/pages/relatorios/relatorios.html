@@ -1,0 +1,133 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 col-lg-3 col-xl-2 px-0">
+            <app-side-menu style="position: sticky; top: 0; display: block; height: 100vh;"></app-side-menu>
+        </div>
+        <div class="col-10 d-flex flex-column p-3" style="background-color: #111722; color: white;">
+            <h1>Relatórios de Produtividade</h1>
+            <div class="row g-3 align-items-stretch">
+                <div class="col">
+                    <div class="card border border-2 rounded">
+                        <h2>Metas Cumpridas</h2>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="progress-circle" style="--progress: {{metas.porcentagem}}%;">
+                                    <span>{{metas.porcentagem | number: '1.2-2'}}%</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h4 style="color: #f2a30f;">{{metas.cumpridas}}</h4>
+                                <p>Cumpridas</p>
+                                <hr class="my-3">
+                                <h4>{{metas.total}}</h4>
+                                <p>Total</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border border-2 rounded mt-3">
+                        <h2>Tarefas Executadas</h2>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="progress-circle" style="--progress: {{tarefas.porcentagem}}%;">
+                                    <span>{{tarefas.porcentagem| number: '1.2-2'}}%</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h4 style="color: #f2a30f;">{{tarefas.cumpridas}}</h4>
+                                <p>Cumpridas</p>
+                                <hr class="my-3">
+                                <h4>{{tarefas.total}}</h4>
+                                <p>Total</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card border border-2 rounded h-100">
+                        <h2>Categorias de metas mais realizadas</h2>
+                        @for(categoria of metasCat.slice(0,5); track categoria.categoria.id){
+                            {{categoria.categoria.nome}}
+                            <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                              <div class="progress-bar"
+                                [style.width.%]="porcentagemMetas(categoria.total)"
+                                [style.background-color]="'#bf5e81'"
+                              ></div>
+                            </div>
+                            <p>{{categoria.total}}/{{totalMetas()}}</p>
+                            <br>
+                        }
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card border border-2 rounded h-100">
+                        <h2>Categorias de tarefas mais realizadas</h2>
+                        @for(categoria of tarefasCat.slice(0,5); track categoria.categoria.id){
+                            {{categoria.categoria.nome}}
+                            <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                              <div class="progress-bar"
+                                [style.width.%]="porcentagemTarefas(categoria.total)"
+                                [style.background-color]="'#eff294'"
+                              ></div>
+                            </div>
+                            <p>{{categoria.total}}/{{totalTarefas()}}</p>
+                            <br>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-1">
+                <div class="col">
+                    <div class="card border border-2 rounded h-100 p-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h2>Períodos mais produtivos</h2>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="escolhePeriodos('Turnos')" checked>
+                                <label class="btn btn-outline-roxo" for="btnradio1">Turnos</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="escolhePeriodos('Semanas')">
+                                <label class="btn btn-outline-roxo" for="btnradio2">Semanas</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (click)="escolhePeriodos('Meses')">
+                                <label class="btn btn-outline-roxo" for="btnradio3">Meses</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="grafico">
+                                    @if (periodoVisualizado == "Turnos") {
+                                        @for (turno of turnos; track $index) {
+                                            <div class="coluna">
+                                                <div class="barra-container">
+                                                    <div class="barra" [style.height.%]="porcentagemTurno(turno.total)"></div>
+                                                </div>
+                                                <span>{{turno.turno}}</span>
+                                            </div>
+                                        }
+                                    }@else if(periodoVisualizado == "Semanas"){
+                                        @for (semana of semanas; track $index) {
+                                            <div class="coluna">
+                                                <div class="barra-container">
+                                                    <div class="barra" [style.height.%]="porcentagemSemana(semana.total)"></div>
+                                                </div>
+                                                <span>{{semana.semana}}</span>
+                                            </div>
+                                        }
+                                    }@else {
+                                        @for (mes of meses; track $index) {
+                                            <div class="coluna">
+                                                <div class="barra-container">
+                                                    <div class="barra" [style.height.%]="porcentagemMes(mes.total)"></div>
+                                                </div>
+                                                <span>{{mes.mes}}</span>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

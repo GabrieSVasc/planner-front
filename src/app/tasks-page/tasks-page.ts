@@ -79,7 +79,6 @@ export class TasksPage implements OnInit {
     this.categoriasDisponiveis.set(
       categorias.sort((a,b)=>a.nome.localeCompare(b.nome))
     );
-    console.log(categorias);
   }
 
   carregarTarefas(): void {

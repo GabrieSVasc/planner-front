@@ -1,0 +1,98 @@
+h1 {
+    text-align: center;
+    font-size: 52px;
+    margin-bottom: 25px;
+}
+h2{
+    text-align: center;
+}
+p {
+    font-size: small;
+    opacity: 70%;
+}
+
+.card {
+    background-color: #151820;
+    color: white;
+    padding: 20px;
+}
+
+.btn-outline-roxo {
+  --bs-btn-color: #6f42c1;
+  --bs-btn-border-color: #6f42c1;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6f42c1;
+  --bs-btn-hover-border-color: #6f42c1;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #6f42c1;
+  --bs-btn-active-border-color: #6f42c1;
+}
+
+.progress-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+
+    background: conic-gradient(
+        #f2a30f var(--progress),
+        #dee2e6 0
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.progress-circle::before {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    background: #151820;
+    border-radius: 50%;
+}
+
+.progress-circle span {
+    position: relative;
+    z-index: 1;
+
+    font-weight: bold;
+    color: white;
+}
+
+.grafico {
+    height: 300px;
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    gap: 30px;
+    padding: 20px;
+}
+
+.coluna {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 8px;
+}
+
+.barra-container {
+    height: 250px;
+    width: 50px;
+    display: flex;
+    align-items: end;
+}
+
+.barra {
+    width: 100%;
+    background-color: #6f42c1;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.3s;
+}
