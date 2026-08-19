@@ -14,7 +14,7 @@
 
                     <input
                         type="text"
-                        [(ngModel)]="lembrete.descricao"
+                        [(ngModel)]="novoLembrete.descricao"
                         placeholder="Digite a descrição do lembrete">
 
                 </div>
@@ -28,10 +28,11 @@
                         <label class="radio-option">
 
                             <input
+                                (click)="naoRecorrente()"
                                 type="radio"
                                 name="tipo"
                                 [value]="false"
-                                [(ngModel)]="lembrete.recorrente">
+                                [(ngModel)]="novoLembrete.recorrente">
 
                             Único
 
@@ -43,7 +44,7 @@
                                 type="radio"
                                 name="tipo"
                                 [value]="true"
-                                [(ngModel)]="lembrete.recorrente">
+                                [(ngModel)]="novoLembrete.recorrente">
 
                             Recorrente
 
@@ -52,6 +53,32 @@
                     </div>
 
                 </div>
+                @if (novoLembrete.recorrente) {
+                    <div class="campo">
+                        <label>Frequencia</label>
+                        <div class="tipo-container">
+                            <label class="radio-option">
+                                <input type="radio" name="frequencia" value="DIARIA" [(ngModel)]="novoLembrete.frequencia">
+                                Diária
+                            </label>
+
+                            <label class="tipo-container">
+                                <input type="radio" name="frequencia" value="SEMANAL" [(ngModel)]="novoLembrete.frequencia">
+                                Semanal
+                            </label>
+
+                            <label class="tipo-container">
+                                <input type="radio" name="frequencia" value="MENSAL" [(ngModel)]="novoLembrete.frequencia">
+                                Mensal
+                            </label>
+
+                            <label class="tipo-container">
+                                <input type="radio" name="frequencia" value="ANUAL" [(ngModel)]="novoLembrete.frequencia">
+                                Anual
+                            </label>
+                        </div>
+                    </div>
+                }
 
                 <div class="campo">
 
@@ -59,8 +86,22 @@
 
                     <input
                         type="date"
-                        [(ngModel)]="lembrete.data">
+                        [(ngModel)]="data">
 
+                </div>
+
+                <div class="campo">
+                    <label>Horario</label>
+                    <input type="time"[(ngModel)]="hora">
+                </div>
+
+                <div class="campo">
+                    <label>Categoria</label>
+                    <select [(ngModel)]="novoLembrete.categoria_id" name="categoria">
+                        @for (categoria of categorias; track $index) {
+                            <option value="{{categoria.id}}">{{categoria.nome}}</option>
+                        }
+                    </select>
                 </div>
 
                 <div class="botoes">

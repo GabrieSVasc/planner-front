@@ -1,9 +1,11 @@
+import { Categoria } from "./categoria";
 export interface Lembrete {
     id: number;
     descricao: string;
-    categoria: string;
+    data_hora: string;
+    categoria: Categoria;
     tipo: string;
-    data: string;
-    horario: string;
     recorrente: boolean;
+    frequencia: "DIARIA" | "SEMANAL" |"MENSAL"|"ANUAL"|null;
+    ativo: boolean
 }

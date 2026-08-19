@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Lembrete } from '../../models/lembrete';
 import { LembreteService } from '../../services/lembrete.service';
 import { SideMenu } from '../../side-menu/side-menu';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-lembrete-list',
@@ -11,17 +12,20 @@ import { SideMenu } from '../../side-menu/side-menu';
   templateUrl: './lembrete-list.html',
   styleUrl: './lembrete-list.css',
 })
-export class LembreteList {
+export class LembreteList implements OnInit {
 
   lembretes: Lembrete[] = [];
 
   constructor(
     private lembreteService: LembreteService,
-    private router: Router
-  ) {
-    //this.lembretes = this.lembreteService.getLembretes();
-  }
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
+  async ngOnInit(){
+    this.lembretes = await this.lembreteService.getLembretes()
+    this.cdr.detectChanges();
+  }
   novoLembrete() {
     this.router.navigate(['/lembretes/novo']);
   }
@@ -30,13 +34,14 @@ export class LembreteList {
     this.router.navigate(['/lembretes/editar', id]);
   }
 
-  excluirLembrete(id: number) {
+  async excluirLembrete(id: number) {
 
     const confirmar = confirm('Deseja realmente excluir este lembrete?');
 
     if (confirmar) {
       this.lembreteService.deleteLembrete(id);
-      //this.lembretes = this.lembreteService.getLembretes();
+      this.lembretes = await this.lembreteService.getLembretes();
+      this.cdr.detectChanges()
     }
 
   }
