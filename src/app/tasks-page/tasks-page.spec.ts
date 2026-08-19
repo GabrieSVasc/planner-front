@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 
-import { AuthService } from '../core/auth.service';
+import { AuthService } from '../services/auth.service';
 import { TarefaService } from '../core/tarefa.service';
 import { TasksPage } from './tasks-page';
 

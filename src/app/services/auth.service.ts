@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { API_BASE_URL } from './api.config';
-import { LoginPayload, LoginResponse, RegisterResponse, RegisterPayload } from './auth.model';
+import { API_BASE_URL } from '../core/api.config';
+import { LoginPayload, LoginResponse, RegisterResponse, RegisterPayload } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -28,5 +28,17 @@ export class AuthService {
     localStorage.removeItem('planner_token');
     localStorage.removeItem('planner_usuario');
     void this.router.navigate(['/']);
+  }
+
+  async perfil(): Promise<number>{
+    const response = await fetch(`${API_BASE_URL}/perfil`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem('planner_token')
+      }
+    })
+    const data = await response.json();
+    return data['id'];
   }
 }

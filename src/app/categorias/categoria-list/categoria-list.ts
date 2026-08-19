@@ -33,7 +33,6 @@ async ngOnInit() {
     console.error('Erro ao carregar categorias:', error);
     alert('Erro ao carregar categorias');
   }
-  console.log(this.categorias);
 }
 novaCategoria() {
   this.router.navigate(['/categorias/nova']);

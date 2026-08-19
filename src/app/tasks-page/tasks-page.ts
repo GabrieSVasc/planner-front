@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
-import { AuthService } from '../core/auth.service';
-import { TarefaService } from '../core/tarefa.service';
-import { Categoria, Tarefa, TarefaPayload, TarefaPrioridade, TarefaStatus, TarefaTurno } from '../core/tarefa.model';
+import { AuthService } from '../services/auth.service';
+import { TarefaService } from '../services/tarefa.service';
+import { Categoria, Tarefa, TarefaPayload, TarefaPrioridade, TarefaStatus, TarefaTurno } from '../models/tarefa.model';
 import { SideMenu } from '../side-menu/side-menu';
 
 type Filtro = 'TODAS' | TarefaStatus;

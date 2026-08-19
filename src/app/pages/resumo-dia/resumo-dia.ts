@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SideMenu } from "../../side-menu/side-menu";
-import { TarefaService } from '../../core/tarefa.service';
-import { Tarefa } from '../../core/tarefa.model';
-import { Categoria } from '../../core/tarefa.model';
+import { TarefaService } from '../../services/tarefa.service';
+import { Tarefa } from '../../models/tarefa.model';
+import { Categoria } from '../../models/tarefa.model';
 import { Meta } from '../../models/meta';
 import { Lembrete } from '../../models/lembrete';
 

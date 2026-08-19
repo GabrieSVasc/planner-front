@@ -35,8 +35,11 @@ export class ListMetas implements OnInit {
   }
 
   removeMeta(id: number){
-    this.metaService.removeMeta(id);
-    this.renovarLista();
+    const confirmar = confirm("Deseja realmente excluir esta meta?");
+    if(confirmar){
+      this.metaService.removeMeta(id);
+      this.renovarLista();
+    }
   }
 
   to(rota: string){
