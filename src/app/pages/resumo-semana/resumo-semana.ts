@@ -1,31 +1,63 @@
 import { CommonModule } from '@angular/common';
 import { SideMenu } from '../../side-menu/side-menu';
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { Tarefa } from '../../models/tarefa.model';
+import { TarefaService } from '../../services/tarefa.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { CategoriaService } from '../../services/categoria.service';
+import { Categoria } from '../../models/categoria';
 @Component({
   selector: 'app-resumo-semana',
   imports: [CommonModule, SideMenu],
   templateUrl: './resumo-semana.html',
   styleUrl: './resumo-semana.css'
 })
-export class ResumoSemana {
+export class ResumoSemana implements OnInit{
+  constructor(
+    private tarefaService: TarefaService,
+    private cdr: ChangeDetectorRef,
+    private categoriaService: CategoriaService
+  ){}
 
-  dataAtual = new Date(2026, 6, 18);
+  dataAtual = new Date();
+  tarefasDias: {
+    data: Date;
+    letra: string;
+    tarefas: Tarefa[];
+  }[] = [];
 
-  semanaAnterior(): void {
+  categorias: Categoria[] = [];
+  inicialSemana = ['S', 'T', 'Q', 'Q', 'S','S','D'];
 
-    this.dataAtual.setDate(this.dataAtual.getDate() - 7);
-
+  mudarSemana(qt: number){
+    this.dataAtual.setDate(this.dataAtual.getDate()+qt);
     this.dataAtual = new Date(this.dataAtual);
-
+    this.atualizarSemana();
   }
 
-  proximaSemana(): void {
+  async ngOnInit(){
+    this.pegarCategorias();
+    this.atualizarSemana();
+  }
+  async pegarCategorias(){
+    this.categorias = await this.categoriaService.getCategorias();
+    this.cdr.detectChanges();
+  }
 
-    this.dataAtual.setDate(this.dataAtual.getDate() + 7);
-
-    this.dataAtual = new Date(this.dataAtual);
-
+  async atualizarSemana(){
+    this.tarefasDias = [];
+    const date = this.inicioSemana(this.dataAtual);
+    for(let i=0; i<7; i++){
+      const dia = new Date(date);
+      dia.setDate(date.getDate()+i);
+      const tarefas = await this.obterTarefasDia(dia);
+      this.tarefasDias.push({
+        data: dia,
+        letra: this.inicialSemana[i],
+        tarefas: tarefas
+      });
+      this.cdr.detectChanges();
+    }
   }
 
   selecionarDia(dia: number | null): void {
@@ -37,7 +69,7 @@ export class ResumoSemana {
       this.dataAtual.getMonth(),
       dia
     );
-
+    this.atualizarSemana();
   }
 
   inicioSemana(data: Date): Date {
@@ -52,6 +84,10 @@ export class ResumoSemana {
 
     return inicio;
 
+  }
+
+  async obterTarefasDia(date: Date): Promise<Tarefa[]>{
+    return await this.tarefaService.listarPorData(date);
   }
 
   get semana(): string {
@@ -69,134 +105,6 @@ export class ResumoSemana {
       day: '2-digit',
       month: '2-digit'
     })}`;
-
-  }
-
-  get dias() {
-
-    const inicio = this.inicioSemana(this.dataAtual);
-
-    const semanasMock: Record<string, any[]> = {
-
-      "07-13": [
-
-        [
-          { titulo: 'Planejamento', cor: '#D96C75' }
-        ],
-
-        [
-          { titulo: 'Angular', cor: '#42A5F5' }
-        ],
-
-        [
-          { titulo: 'Banco de Dados', cor: '#4CAF50' }
-        ],
-
-        [
-          { titulo: 'Academia', cor: '#E3A33A' }
-        ],
-
-        [
-          { titulo: 'PLP', cor: '#AB47BC' }
-        ],
-
-        [
-          { titulo: 'Mercado', cor: '#26A69A' }
-        ],
-
-        [
-          { titulo: 'Descanso', cor: '#FFCA28' }
-        ]
-
-      ],
-
-      "07-20": [
-
-        [
-          { titulo: 'Projeto Final', cor: '#EF5350' }
-        ],
-
-        [
-          { titulo: 'Java', cor: '#42A5F5' }
-        ],
-
-        [
-          { titulo: 'Engenharia Software', cor: '#66BB6A' }
-        ],
-
-        [
-          { titulo: 'Comprar Notebook', cor: '#FFA726' }
-        ],
-
-        [
-          { titulo: 'Treino', cor: '#AB47BC' }
-        ],
-
-        [
-          { titulo: 'Cinema', cor: '#26C6DA' }
-        ],
-
-        [
-          { titulo: 'Descanso', cor: '#FFD54F' }
-        ]
-
-      ],
-
-      "07-27": [
-
-        [
-          { titulo: 'Estudar Redes', cor: '#26A69A' }
-        ],
-
-        [
-          { titulo: 'Lavar Carro', cor: '#42A5F5' }
-        ],
-
-        [
-          { titulo: 'Consulta', cor: '#EF5350' }
-        ],
-
-        [
-          { titulo: 'PLP', cor: '#AB47BC' }
-        ],
-
-        [
-          { titulo: 'Mercado', cor: '#FFA726' }
-        ],
-
-        [
-          { titulo: 'Família', cor: '#66BB6A' }
-        ],
-
-        [
-          { titulo: 'Filme', cor: '#FFD54F' }
-        ]
-
-      ]
-
-    };
-
-    const chaveSemana =
-      `${String(inicio.getMonth() + 1).padStart(2, '0')}-${String(inicio.getDate()).padStart(2, '0')}`;
-
-    const tarefasSemana =
-      semanasMock[chaveSemana] ?? [[], [], [], [], [], [], []];
-
-    const nomes = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
-
-    return nomes.map((nome, indice) => ({
-
-      letra: nome,
-
-      data: new Date(
-        inicio.getFullYear(),
-        inicio.getMonth(),
-        inicio.getDate() + indice
-      ),
-
-      tarefas: tarefasSemana[indice]
-
-    }));
 
   }
 

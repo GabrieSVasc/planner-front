@@ -11,7 +11,7 @@
 
                 <button
                     class="btn-dia"
-                    (click)="semanaAnterior()">
+                    (click)="mudarSemana(-7)">
                     &lt;
                 </button>
 
@@ -23,7 +23,7 @@
 
                 <button
                     class="btn-dia"
-                    (click)="proximaSemana()">
+                    (click)="mudarSemana(+7)">
                     &gt;
                 </button>
 
@@ -37,7 +37,7 @@
 
                         <div
                             class="dia-coluna"
-                            *ngFor="let dia of dias"
+                            *ngFor="let dia of tarefasDias"
 
                             [class.dia-atual]="
                                 dia.data.getDate() === dataAtual.getDate()
@@ -54,9 +54,9 @@
                             <div
                                 class="tarefa"
                                 *ngFor="let tarefa of dia.tarefas"
-                                [style.color]="tarefa.cor">
+                                [style.color]="tarefa.categoria?.cor">
 
-                                {{ tarefa.titulo }}
+                                {{ tarefa.descricao }}
 
                             </div>
 
@@ -112,31 +112,12 @@
                     <div class="categorias">
 
                         <h3>Categorias</h3>
-
-                        <div class="categoria-item">
-
-                            <div class="cor vermelho"></div>
-
-                            Faculdade
-
-                        </div>
-
-                        <div class="categoria-item">
-
-                            <div class="cor amarelo"></div>
-
-                            Compras
-
-                        </div>
-
-                        <div class="categoria-item">
-
-                            <div class="cor verde"></div>
-
-                            Saúde
-
-                        </div>
-
+                        @for (categoria of categorias; track $index) {
+                            <div class="categoria-item" >
+                                <div class="cor" [style.background-color]="categoria.cor"></div>
+                                {{categoria.nome}}
+                            </div>
+                        }
                     </div>
 
                 </aside>
